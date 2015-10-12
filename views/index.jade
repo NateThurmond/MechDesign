@@ -1,0 +1,15 @@
+extends layout
+
+block header
+  include header
+
+block sideBar
+  include sideBar
+
+block mainContent
+  div(id="mainContent")
+    h1= title
+    p Quote of the day: #{quote}  
+
+block footer
+  include footer

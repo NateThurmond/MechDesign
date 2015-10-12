@@ -1,0 +1,10 @@
+var express2 = require('express');
+var router2 = express.Router();
+
+/* GET home page. */
+router2.get('/about', function(req, res, next) {
+
+  res.render('about', { title: 'About Mech Design.' });
+});
+
+module.exports = router2;

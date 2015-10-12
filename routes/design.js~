@@ -1,0 +1,10 @@
+var express3 = require('express');
+var router3 = express.Router();
+
+/* GET home page. */
+router3.get('/design', function(req, res, next) {
+
+  res.render('design', { title: 'Design your Mech' });
+});
+
+module.exports = router3;

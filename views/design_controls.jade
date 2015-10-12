@@ -1,0 +1,7 @@
+block design_controls
+  div(id="design_controls")
+    h1= title
+    form(id="mechSelectorForm", method="post", action="/selectmech")
+      select(id="mechSelector" name="mechSelector" onchange="$('#mechSelectorForm').submit();")
+        each mech, i in mechlist
+          option(class="mechSelector_mech" name="mechSelector_name")= mech.mechName

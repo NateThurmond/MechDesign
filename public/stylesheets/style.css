@@ -1,0 +1,116 @@
+#mainContent, #mainContent_design {
+  height: 80%;
+  width: 85%;
+  display: inline-block; }
+
+.sideBarLink {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+
+html, body {
+  background: lightgrey;
+  margin: 0px 0px 0px 0px;
+  height: 100%; }
+
+h1 {
+  padding: 0px;
+  margin: 0px; }
+
+#header {
+  width: 100%;
+  background: black;
+  color: white;
+  height: 70px; }
+
+#linkBar {
+  position: absolute;
+  background: grey;
+  width: auto;
+  height: 50px;
+  margin: 10px 0px 10px 15%;
+  padding: 0px 0px 0px 0px; }
+  #linkBar a {
+    text-decoration: none;
+    color: white;
+    font-size: 22px;
+    margin: 14px 10px 14px 10px;
+    padding: 0px 0px 0px 0px;
+    white-space: nowrap;
+    overflow: hidden; }
+
+#sideBar {
+  vertical-align: top;
+  height: 80%;
+  width: 15%;
+  background: grey;
+  color: red;
+  display: inline-block; }
+  #sideBar a {
+    display: block; }
+
+#mainContent {
+  background-image: url("../images/madcatblueprint.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 50% 80%; }
+  #mainContent h1 {
+    margin-right: 10px;
+    display: inline-block; }
+  #mainContent p {
+    position: absolute;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden; }
+
+#mainContent_design {
+  color: white;
+  white-space: nowrap;
+  background-image: url("../images/bg5.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%; }
+  #mainContent_design .popoutControl {
+    display: none;
+    position: absolute;
+    top: 70px;
+    width: 300px;
+    height: 80%;
+    background-color: lightgrey; }
+
+#footer {
+  vertical-align: top;
+  display: block;
+  clear: both;
+  height: 10%;
+  width: 100%;
+  background: black;
+  text-align: right;
+  color: white; }
+  #footer p {
+    margin: 0px 0px 0px 0px; }
+
+.sideBarLink {
+  cursor: pointer; }
+
+#design_controls {
+  vertical-align: top;
+  display: inline-block;
+  width: 300px;
+  height: 100%; }
+
+#design_mechview {
+  color: black;
+  background-image: url("../images/emptymech.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  display: inline-block;
+  height: 100%;
+  width: 550px;
+  background-color: blue; }
+
+/*# sourceMappingURL=style.css.map */

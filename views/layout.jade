@@ -1,0 +1,18 @@
+doctype html
+html
+  head
+    title= MechDesign
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src='/javascripts/jquery-2.1.4.min.js')
+    script(src='/javascripts/mainFunctions.js')
+  body
+    div(id="header")
+      block header
+      
+    div(id="sideBar")
+      block sideBar
+      
+    block mainContent
+    
+    div(id="footer")
+      block footer

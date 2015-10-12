@@ -1,0 +1,16 @@
+extends layout
+
+block header
+  include header
+
+block sideBar
+  include sideBar
+
+block mainContent
+  div(id="mainContent_design")
+    include popoutControl
+    include design_controls
+    include design_mechview
+    
+block footer
+  include footer
