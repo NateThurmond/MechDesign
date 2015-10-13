@@ -1,5 +1,0 @@
-block header
-  div(id="linkBar")
-    a(href="/", class="headerLink") Home Page
-    a(href="/about", class="headerLink") About
-    a(href="http://www.camospecs.com", class="headerLink") CamoSpecs
