@@ -7,9 +7,23 @@ block sideBar
   include sideBar
 
 block mainContent
+  div(id="mechSelector")
+    each mech, i in mechs
+      - if (typeof(mech.mechName) !== 'undefined') {
+        div= mech.mechName
+        p speed: #{mech.speed}, weight: #{mech.weight}, main weapon: #{mech.weapon1}
+      -}
   div(id="mainContent")
     h1= title
-    p Quote of the day: #{quote}  
+    p Quote of the day: #{quote}
 
 block footer
   include footer
+
+
+    //- each article in articles
+    //  div.article
+    //    div.created_at= article.created_at
+    //    div.title 
+    //        a(href="/blog/"+article._id)!= article.title
+    //    div.body= article.body

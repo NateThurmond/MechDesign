@@ -5,8 +5,8 @@ var router = module.exports = express.Router();
 router.get('/', function(req, res){
     mechMod.findAll( function(error,docs){
         res.render('index.jade', { 
-            title: 'MechDesign',
-            articles:docs
+            title: 'Mech Design',
+            mechs:docs
         });
     })
 });
