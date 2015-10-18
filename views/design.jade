@@ -13,6 +13,13 @@ block mainContent
       a(href="#" id=mech._id class="selectMech")= mech.mechName
       p Speed: #{mech.speed} Weight: #{mech.weight} Primary Weapon: #{mech.weapon1}
       -}
+      
+  div(id="mechDetails")
+    h2(id="mechDetails_Name")
+    p(id="mechDetails_Weight")
+    p(id="mechDetails_Speed")
+    p(id="mechDetails_PriWeapon")
+    
   div(id="mechArmorDiagram")
 
 block footer

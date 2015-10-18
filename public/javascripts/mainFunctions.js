@@ -8,9 +8,5 @@ $(document).ready(function() {
 	    $(this).css('color', 'white');
 	}
     );
-	
-	$('.sideBarLink').click(function() {
-		$('#mechSelector').toggle('.showHide');	
-	});
 
 });
