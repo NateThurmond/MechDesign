@@ -29,8 +29,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 mechMod = new mechMod();
 
 var indexRoutes = require('./routes/index');
+var designRoutes = require('./routes/design');
 
 app.use(indexRoutes);
+app.use(designRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
