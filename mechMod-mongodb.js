@@ -25,22 +25,39 @@ mechMod.prototype.findById = function(id, callback) {
     });
 };
 
-mechMod.prototype.save = function(mechs, callback) {
-  if( typeof(mechs.length)=="undefined")
-    mechs = [mechs];
+mechMod.prototype.findByName = function(name, callback) {
+    this.collection.findOne({mechName: name}, function(error, result) {
+      if( error ) callback(error)
+      else callback(null, result)
+    });
+};
 
-  for( var i =0;i< mechs.length;i++ ) {
-    mechs = mechs[i];
-    mechs.created_at = new Date();
-    if( mechs.comments === undefined ) mechs.comments = [];
-    for(var j =0;j< mechs.comments.length; j++) {
-      mechs.comments[j].created_at = new Date();
-    }
+mechMod.prototype.save = function(mech, callback) {
+  if( mech == null) {
+    console.log('error: no mech data sent to mechMod.save');
+    callback(null, "Error saving mech");
   }
+  else {
+    createDate = new Date();
+    result = JSON.stringify(createDate);
+    mech.created_on = result.substring(1, result.length-1);
+    delete mech["_id"];
+    this.collection.insert(mech, function() {
+      callback(null, "Created new mech");
+    });
+  }
+};
 
-  this.collection.insert(mechs, function() {
-    callback(null, mechs);
-  });
+mechMod.prototype.patch = function(mech, callback) {
+  if( mech == null) {
+    console.log('error: no mech data sent to mechMod.patch');
+    callback(null, "Error saving mech");
+  }
+  else {
+    this.collection.insert(mech, function() {
+      callback(null, "Mech Details Saved");
+    });
+  }
 };
 
 //mechMod.prototype.addCommentToArticle = function(articleId, comment, callback) {

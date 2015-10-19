@@ -122,7 +122,25 @@ h1 {
     margin-top: 5px; }
 
 #mechDetails_Name {
-  text-align: center; }
+  display: inline-block;
+  width: 100px; }
+
+#mechArmorSections {
+  display: inline-block;
+  position: absolute;
+  left: calc(15% + 300px);
+  top: 70px;
+  width: calc(.7 * (85% - 300px));
+  height: 79%; }
+  #mechArmorSections #mechArmorHead {
+    position: static;
+    text-align: center;
+    width: 14%;
+    height: 11%;
+    background-color: rgba(255, 0, 0, 0.4);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%; }
 
 #mechArmorDiagram {
   display: inline-block;
@@ -135,5 +153,29 @@ h1 {
 
 .showHide {
   display: inline-block; }
+
+.stat_Change {
+  top: 3px;
+  width: 30px;
+  display: inline-block; }
+
+#mechDetails_Weight, #mechDetails_Speed, #mechDetails_Name_label {
+  width: 69px;
+  display: inline-block;
+  margin: 10px 0px 10px 0px; }
+
+#mechDetails_Name_label {
+  width: 130px; }
+
+#mechSave_Submit_Div {
+  text-align: center;
+  margin-top: 15px; }
+
+#mechDetails_oid {
+  display: none; }
+
+.inlineLabel {
+  display: inline-block;
+  width: 62px; }
 
 /*# sourceMappingURL=style.css.map */
