@@ -16,5 +16,8 @@
     "serve-favicon": "~2.3.0",
     "mongodb": "~2.0.33",
     "monk": "~1.0.1"
+  },
+  "devDependencies": {
+    "express-livereload": "0.0.24"
   }
 }
