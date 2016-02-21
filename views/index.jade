@@ -5,8 +5,9 @@ block header
 
 block mainContent
   div(id="mainContent")
-    h1= title
-    p Quote of the day: #{quote}
+    h1.indexTitle= title
+    p.quoteOfDay Quote: #{quote}
+    div(id="madCatLogo")
 
 block footer
   include footer

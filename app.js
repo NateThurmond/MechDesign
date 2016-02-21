@@ -5,11 +5,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var MechMod = require('./mechMod-mongodb').ArticleProvider;
-var livereload = require('express-livereload');
+var Quotes = require('./quote-mongodb').ArticleProvider;
 
 var app = express();
-
-livereload(app, config={watchDir: "/var/www/MechDesign/"});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -28,9 +26,9 @@ app.use(require('node-sass-middleware')({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-
 // GLOBAL Variable. Not best practice but this is used in all routes.
 mechMod = new mechMod();
+quotes = new quotes();
 
 var indexRoutes = require('./routes/index');
 var designRoutes = require('./routes/design');

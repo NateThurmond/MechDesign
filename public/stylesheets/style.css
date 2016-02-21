@@ -1,4 +1,4 @@
-#mainContent, #mainContent_design {
+#mainContent, #madCatLogo, #mainContent_design {
   height: 80%;
   width: 85%;
   display: inline-block; }
@@ -57,10 +57,10 @@ h1 {
     display: block; }
 
 #mainContent {
-  background-image: url("../images/madcatblueprint.jpg");
+  background-image: url("../images/bg5.jpg");
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 50% 80%; }
+  background-size: 100% 100%; }
   #mainContent h1 {
     margin-right: 10px;
     display: inline-block; }
@@ -69,6 +69,17 @@ h1 {
     display: inline-block;
     white-space: nowrap;
     overflow: hidden; }
+
+.quoteOfDay, .indexTitle {
+  color: white;
+  vertical-align: top; }
+
+#madCatLogo {
+  background-image: url("../images/madcatblueprint.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 60% 80%;
+  clear: both; }
 
 #mainContent_design {
   color: white;

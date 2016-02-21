@@ -69,10 +69,10 @@ h1
 
 #mainContent
   @extend %mainContent_prop
-  background-image: $mainContent-back-img
+  background-image: $other-back-img
   background-repeat: no-repeat
   background-position: center
-  background-size: 50% 80%
+  background-size: 100% 100%
   h1
     margin-right: 10px
     display: inline-block
@@ -82,6 +82,17 @@ h1
     white-space: nowrap
     overflow: hidden
       
+.quoteOfDay, .indexTitle
+  color: white
+  vertical-align: top
+  
+#madCatLogo
+  @extend %mainContent_prop
+  background-image: $mainContent-back-img
+  background-repeat: no-repeat
+  background-position: center
+  background-size: 60% 80%
+  clear: both
 
 #mainContent_design
   @extend %mainContent_prop
