@@ -34,6 +34,14 @@ router.post('/design/saveNew/', function(req, res){
     })
 });
 
+/* POST to delete mech. */
+router.post('/design/removeMech/:mechName', function(req, res) {
+    
+    mechMod.removeMech(req.params.mechName, function(error, response){
+        res.json(response);
+    })
+});
+
 /* POST save existing mech for design page. */
 router.post('/design/save/', function(req, res){
     mech = req.body;

@@ -21,6 +21,11 @@ $(document).ready(function() {
 	// Load the first mech from the list on page load
 	$('.selectMech:first').click();
 	
+	$('#mechDetails_delete').click(function() {
+		var mechID = $("input[name='_id']").val();
+		deleteMech(mechID);
+	});
+	
 	$('#mechDetails_save').click(function() {
 		
 		mechJSON = {_id: $("input[name='_id']").val(),
@@ -51,6 +56,20 @@ $(document).ready(function() {
 		
 	});
 	
+	$('#mechDetails_Weight_Down').click(function() {
+		var currentMechWeight = $('#mechDetails_Weight').html();
+		if ((currentMechWeight > 20) && (currentMechWeight < 100)) {
+			$('#mechDetails_Weight').html((parseInt(currentMechWeight) - 1).toString());
+		}
+	});
+	
+	$('#mechDetails_Weight_Up').click(function() {
+		var currentMechWeight = $('#mechDetails_Weight').html();
+		if ((currentMechWeight > 20) && (currentMechWeight < 100)) {
+			$('#mechDetails_Weight').html((parseInt(currentMechWeight) + 1).toString());
+		}
+	});
+	
 });
 
 
@@ -65,6 +84,29 @@ function saveMech(saveString, mechJSON) {
 			alert(response);
 			
 			if (response.indexOf("Created new mech") >= 0) {
+				window.open("/design", "_self");
+			}
+			if (response.indexOf("Mech Details Saved") >= 0) {
+				$('.selectMech').each(function() {
+					if ($(this).html() == mechJSON.mechName) {
+						
+						$(this).next().html("Speed: " + mechJSON.speed
+							+ " Weight: " + mechJSON.weight + " Primary Weapon:");
+					}
+				});
+			}
+		}
+	});
+}
+
+function deleteMech(mechID) {
+	$.ajax({
+		url:"/design/removeMech/" + mechID,
+		type:"POST",
+		success: function(response){
+			alert(response);
+			
+			if (response.indexOf("Mech Deleted") >= 0) {
 				window.open("/design", "_self");
 			}
 		}

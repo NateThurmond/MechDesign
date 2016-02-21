@@ -32,6 +32,13 @@ mechMod.prototype.findByName = function(name, callback) {
     });
 };
 
+mechMod.prototype.removeMech = function(mechID, callback) {
+    this.collection.remove({_id: mechID}, function(error, result) {
+      if( error ) callback(error)
+      else callback(null, "Mech Deleted")
+    });
+};
+
 mechMod.prototype.save = function(mech, callback) {
   if( mech == null) {
     console.log('error: no mech data sent to mechMod.save');
@@ -54,8 +61,15 @@ mechMod.prototype.patch = function(mech, callback) {
     callback(null, "Error saving mech");
   }
   else {
-    this.collection.insert(mech, function() {
-      callback(null, "Mech Details Saved");
+    
+    this.collection.update(
+      {_id: mech._id},
+      {weight: mech.weight,
+       speed: mech.speed,
+       mechName: mech.mechName},
+      function(error, mech){
+        if( error ) callback(error);
+        else callback(null, "Mech Details Saved")
     });
   }
 };
