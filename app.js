@@ -6,8 +6,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var MechMod = require('./mechMod-mongodb').ArticleProvider;
 var Quotes = require('./quote-mongodb').ArticleProvider;
+var livereload = require('express-livereload');
 
 var app = express();
+livereload(app, config={watchDir: "/var/www/MechDesign/"});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
