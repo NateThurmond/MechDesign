@@ -70,6 +70,29 @@ $(document).ready(function() {
 		}
 	});
 	
+	$('#mechDetails_Speed_Down').click(function() {
+		calcNewWalk("sub");
+	});
+	
+	$('#mechDetails_Speed_Up').click(function() {
+		calcNewWalk("add");
+	});
+	
+	function calcNewWalk(mod) {
+		var currentMechSpeed = $('#mechDetails_Speed').html();
+		var mechWalk = currentMechSpeed.substr(0, currentMechSpeed.indexOf('-'));
+		var mechJump = currentMechSpeed.substr(currentMechSpeed.length - 1);
+		
+		if ((mod == "sub") && (mechWalk > 2)) {
+			mechWalk = (parseInt(mechWalk) - 1).toString();
+		}
+		else if ((mod == "add") && (mechWalk < 12)) {
+			mechWalk = (parseInt(mechWalk) + 1).toString();
+		}
+		var mechRun = Math.floor(mechWalk * 1.5);
+		$('#mechDetails_Speed').html(mechWalk + "-" + mechRun + "-" + mechJump);
+	}
+	
 });
 
 
