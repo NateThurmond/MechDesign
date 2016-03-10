@@ -6,7 +6,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var MechMod = require('./mechMod-mongodb').ArticleProvider;
 var Quotes = require('./quote-mongodb').ArticleProvider;
+var Members = require('./member-mongodb').ArticleProvider;
+var Crypto = require('./crypto').ArticleProvider;
 var livereload = require('express-livereload');
+
 
 var app = express();
 livereload(app, config={watchDir: "/var/www/MechDesign/"});
@@ -31,12 +34,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 // GLOBAL Variable. Not best practice but this is used in all routes.
 mechMod = new mechMod();
 quotes = new quotes();
+members = new members();
+cryptoHash = new cryptoHash();
 
 var indexRoutes = require('./routes/index');
 var designRoutes = require('./routes/design');
+var registerRoutes = require('./routes/register');
 
 app.use(indexRoutes);
 app.use(designRoutes);
+app.use(registerRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
