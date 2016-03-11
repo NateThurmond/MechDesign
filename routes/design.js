@@ -6,6 +6,7 @@ router.get('/design', function(req, res){
     mechMod.findAll( function(error,docs){
         res.render('design.jade', { 
             title: 'Create your mech',
+            welcomeSec: "Welcome, " + req.cookies.userName,
             mechs:docs
         });
     })

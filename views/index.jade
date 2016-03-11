@@ -3,11 +3,18 @@ extends layout
 block header
   include header
 
+block sideBar  
+  block login
+    include login
+
 block mainContent
   div(id="mainContent")
     h1.indexTitle= title
     p.quoteOfDay Quote: #{quote}
     div(id="madCatLogo")
+    
+block register
+  include register
 
 block footer
   include footer

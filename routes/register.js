@@ -37,6 +37,17 @@ router.post('/register/login/', function(req, res) {
     
     members.login(user, function(err, response) {
         
+        if (response == "Log in successful") {
+            res.cookie('userName', user.userName, { maxAge: 14400000, httpOnly: false });
+        }
+        
         res.json(response);
     });
+});
+
+/* POST to login user. */
+router.post('/register/logout/', function(req, res) {
+    
+    res.clearCookie('userName');
+    res.json("Logged out");
 });

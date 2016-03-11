@@ -1,22 +1,12 @@
-extends layout
-
-block header
-  include header
-
-block mainContent
-  div(id="mainContent")
-    h1.indexTitle= title
-    input(placeholder="Username" id="registerUserName")
-    p(class="registerError" id="regErrorUserName")
-    input(placeholder="Email" id="registerEmail")
-    input(placeholder="Password" id="registerPass")
-    p(class="registerError" id="regErrorPass")
-    input(placeholder="Confirm Password" id="registerPassConfirm")
-    p(class="registerError" id="regErrorPassConfirm")
-    button(id="registerSubmit") Register
-    button(id="login") Login
-
-block footer
-  include footer
-
+block register
+  input(placeholder="Username" id="registerUserName")
+  p(class="registerError" id="regErrorUserName")
+  input(placeholder="Email" id="registerEmail")
+  p
+  input(placeholder="Password" id="registerPass")
+  p(class="registerError" id="regErrorPass")
+  input(placeholder="Confirm Password" id="registerPassConfirm")
+  p(class="registerError" id="regErrorPassConfirm")
+  button(id="registerSubmit") Register
+  
   script(src='/javascripts/register.js')

@@ -31,11 +31,12 @@ h1 {
   height: 70px; }
 
 #linkBar {
+  display: inline-block;
   position: absolute;
   background: grey;
   width: auto;
   height: 50px;
-  margin: 10px 0px 10px 15%;
+  margin: 10px 0px 10px 0px;
   padding: 0px 0px 0px 0px; }
   #linkBar a {
     text-decoration: none;
@@ -163,7 +164,7 @@ h1 {
   background-size: 70% 100%; }
 
 .showHide {
-  display: inline-block; }
+  display: inline-block !important; }
 
 .stat_Change {
   top: 3px;
@@ -191,5 +192,67 @@ h1 {
 
 .registerError {
   color: white; }
+
+#registerBox {
+  display: none;
+  position: absolute;
+  height: 210px;
+  width: 300px;
+  left: 40%;
+  top: 30%;
+  right: 60%;
+  background-color: grey;
+  text-align: center;
+  border: 2px solid black;
+  border-radius: 2px; }
+
+#registerBox input, #registerBox p {
+  width: 200px;
+  display: block;
+  min-height: 15px;
+  max-height: 15px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  margin-left: auto;
+  margin-right: auto; }
+
+#registerUserName {
+  margin-top: 10px !important; }
+
+#registerSubmit {
+  margin-top: 10px; }
+
+#loginBox {
+  display: none; }
+
+#loginButtons {
+  margin-top: 5px;
+  text-align: center; }
+
+#loginUserName, #loginPass {
+  width: 80%;
+  margin-left: 9%;
+  margin-top: 5px;
+  margin-bottom: 5px; }
+
+#login {
+  margin-right: 5px; }
+
+#welcomeSec {
+  display: inline-block;
+  margin: 10px 0px 10px 0px;
+  max-width: 15%;
+  min-width: 15%;
+  height: 50px;
+  color: white;
+  text-align: center; }
+
+#welcomeHideShow {
+  display: none; }
+
+#welcomeHideShow p {
+  font-size: 20px;
+  margin-top: 0px;
+  margin-bottom: 8px; }
 
 /*# sourceMappingURL=style.css.map */
