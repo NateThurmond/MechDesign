@@ -15,20 +15,17 @@ $(document).ready(function() {
         }
 	});
 	
-	$('#login').click(function() {
-		var user = {
-			userName: $('#registerUserName').val(),
-			userPass: $('#registerPass').val()
-		};
+	// Code to show or hide the registerBox based on document click
+	$('body').click(function(event) {
 		
-		if ((user.userName != "") && (user.userPass != "")) {
-            login(user);
+		if ((["registerBox", "showRegister"].indexOf(event.target.id) == -1) &&
+			($('#' + event.target.id).parent().attr('id') != "registerBox")) {
+				$('#registerBox').removeClass('showHide');
         }
 		else {
-			prompt('Username and pass cannot be blank');
+			$('#registerBox').addClass('showHide');
 		}
 	});
-	
 });
 
 
@@ -44,20 +41,6 @@ function registerUser(newUser) {
 		}
 	});
 }
-
-function login(user) {
-	$.ajax({
-		url:"/register/login",
-		type:"POST",
-		data:JSON.stringify(user),
-		contentType:"application/json; charset=utf-8",
-		dataType:"json",
-		success: function(response){
-			alert(response);
-		}
-	});
-}
-
 
 function processRegisterErrors(newUser) {
 	
@@ -85,45 +68,4 @@ function processRegisterErrors(newUser) {
 	}, 8000);
 	
 	return NoErrors;
-}
-
-
-function saveMech(saveString, mechJSON) {
-	$.ajax({
-		url:"/design/" + saveString,
-		type:"POST",
-		data:JSON.stringify(mechJSON),
-		contentType:"application/json; charset=utf-8",
-		dataType:"json",
-		success: function(response){
-			alert(response);
-			
-			if (response.indexOf("Created new mech") >= 0) {
-				window.open("/design", "_self");
-			}
-			if (response.indexOf("Mech Details Saved") >= 0) {
-				$('.selectMech').each(function() {
-					if ($(this).html() == mechJSON.mechName) {
-						
-						$(this).next().html("Speed: " + mechJSON.speed
-							+ " Weight: " + mechJSON.weight + " Primary Weapon:");
-					}
-				});
-			}
-		}
-	});
-}
-
-function deleteMech(mechID) {
-	$.ajax({
-		url:"/design/removeMech/" + mechID,
-		type:"POST",
-		success: function(response){
-			alert(response);
-			
-			if (response.indexOf("Mech Deleted") >= 0) {
-				window.open("/design", "_self");
-			}
-		}
-	});
 }
