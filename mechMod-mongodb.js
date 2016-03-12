@@ -7,12 +7,12 @@ mechMod = function() {
   this.collection = this.db.get('mechs');
   
   this.setCollection = function(collection) {
-        this.collection = this.db.get(collection);
+      this.collection = this.db.get(collection);
   };
 };
 
 mechMod.prototype.findAll = function(callback) {
-  this.collection.find({},{},function(error,results){
+  this.collection.find({},{},function(error,results) {
       if( error ) callback(error)
       else callback(null, results)
   });  
@@ -73,15 +73,5 @@ mechMod.prototype.patch = function(mech, callback) {
     });
   }
 };
-
-//mechMod.prototype.addCommentToArticle = function(articleId, comment, callback) {
-//  this.collection.update(
-//    {_id: articleId},
-//    {"$push": {comments: comment}},
-//    function(error, article){
-//      if( error ) callback(error);
-//      else callback(null, article)
-//  });
-//};
 
 exports.mechMod = mechMod;
