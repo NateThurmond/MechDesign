@@ -15,7 +15,6 @@ $(document).ready(function() {
 	});
 	
 	$('#logout').click(function() {
-		console.log('logging out');
 		logout();
 		location.reload();
 	});

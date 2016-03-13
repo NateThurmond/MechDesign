@@ -1,10 +1,29 @@
 $(document).ready(function() {
 	
-	$('.sideBarLink').click(function() {
-		$('#mechSelector').toggle('.showHide');	
+	// Only show button to view custom mechs if user is logged in
+	if ((getCookie('userName') == null) || (getCookie('userName') == "")) {
+		$('#link_1').css('display', 'none');
+	}
+	else {
+		$('#link_1').css('display', 'block');
+	}
+	
+	
+	$('#link_0').click(function() {
+		$('#mechBaseSelector').toggleClass('showHide');
+		$('#mechCustomSelector').removeClass('showHide');
+	});
+	
+	$('#link_1').click(function() {
+		$('#mechCustomSelector').toggleClass('showHide');
+		$('#mechBaseSelector').removeClass('showHide');
 	});
 
     $('.selectMech').click(function() {
+		
+		// Set selected mech cookie
+		createCookie('selectedMech', $(this).html(), 14400000);
+		
 		$.get("/design/" + this.id, function(data) {
 			
 			if (data != null) {
@@ -12,14 +31,34 @@ $(document).ready(function() {
 				$('#mechDetails_Name').val(data['mechName']);
 				$('#mechDetails_Weight').html(data['weight']);
 				$('#mechDetails_Speed').html(data['speed']);
+				
+				if (data['baseMech']) {
+					$('#mechDetails_delete').css('display', 'none');
+					$('#mechDetails_save').val('Save as new Mech');
+				}
+				else {
+					$('#mechDetails_delete').css('display', 'inline-block');
+					$('#mechDetails_save').val('Save Mech');
+				}
 			}
 			
-			$('#mechSelector').css('display', 'none');	
+			$('#mechBaseSelector').removeClass('showHide');
+			$('#mechCustomSelector').removeClass('showHide');
 		});
 	});
 	
-	// Load the first mech from the list on page load
-	$('.selectMech:first').click();
+	// Load previously selected mech or first mech if null
+	var clickedMech = false;
+	$('.selectMech').each(function() {
+		
+		if ($(this).html() == getCookie('selectedMech')) {
+			clickedMech = true;
+			$(this).click();
+		}
+	})
+	if (! clickedMech) {
+		$('.selectMech:first').click();
+	}
 	
 	$('#mechDetails_delete').click(function() {
 		var mechID = $("input[name='_id']").val();
@@ -31,7 +70,8 @@ $(document).ready(function() {
 		mechJSON = {_id: $("input[name='_id']").val(),
 		weight: $("p[name='weight']").html(),
 		speed: $("p[name='speed']").html(),
-		mechName: $("input[name='mechName']").val() };
+		mechName: $("input[name='mechName']").val(),
+		userName: getCookie("userName") };
 		
 		saveMechBool = true;
 		for (var key in mechJSON) {
@@ -41,15 +81,27 @@ $(document).ready(function() {
 		}
 		
 		if (saveMechBool) {
+			
 			$.get("/design/mechName/" + mechJSON.mechName, function(data) {	
 				if ((data != null) && (data != "")) {
-					if (confirm("There is a already a mech by this name, would you like to save over this mech?")) {
+					
+					if (data['baseMech']) {
+						if (data['mechName'] == mechJSON.mechName) {
+							alert('Must save Mech with a new name');
+						}
+						else {
+							saveMech("saveNew", mechJSON);
+						}
+					}
+					else {
 						saveMech("save", mechJSON);
 					}
 				}
 				else {
 					saveMech("saveNew", mechJSON);
 				}
+				
+				createCookie('selectedMech', mechJSON.mechName, 14400000);
 			});
 		}
 		else {    alert("Some fields are missing. Please make sure that all fields are filled in.");    }

@@ -14,7 +14,7 @@ router.post('/register/register/', function(req, res){
     newUser = req.body;
     
     members.checkForUser(newUser.userName, function(err, userCount) {
-        console.log(userCount);
+        
         if (userCount == 0) {
             members.insertUser(newUser, function(error, response){
                 res.json(response);
@@ -39,6 +39,7 @@ router.post('/register/login/', function(req, res) {
         
         if (response == "Log in successful") {
             res.cookie('userName', user.userName, { maxAge: 14400000, httpOnly: false });
+            res.cookie('selectedMech', 'Spider', { maxAge: 14400000, httpOnly: false });
         }
         
         res.json(response);
@@ -49,5 +50,6 @@ router.post('/register/login/', function(req, res) {
 router.post('/register/logout/', function(req, res) {
     
     res.clearCookie('userName');
+    res.clearCookie('selectedMech');
     res.json("Logged out");
 });

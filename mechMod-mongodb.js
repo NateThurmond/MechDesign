@@ -11,8 +11,15 @@ mechMod = function() {
   };
 };
 
-mechMod.prototype.findAll = function(callback) {
-  this.collection.find({},{},function(error,results) {
+mechMod.prototype.findAllBaseMechs = function(callback) {
+  this.collection.find({"baseMech": 1},{},function(error,results) {
+      if( error ) callback(error)
+      else callback(null, results)
+  });  
+};
+
+mechMod.prototype.findAllCustomMechs = function(userName, callback) {
+  this.collection.find({'userName': userName},{},function(error,results) {
       if( error ) callback(error)
       else callback(null, results)
   });  
@@ -33,9 +40,19 @@ mechMod.prototype.findByName = function(name, callback) {
 };
 
 mechMod.prototype.removeMech = function(mechID, callback) {
-    this.collection.remove({_id: mechID}, function(error, result) {
-      if( error ) callback(error)
-      else callback(null, "Mech Deleted")
+  
+    mechMod.findById(mechID, function(error, selectedMech) {
+        
+        // Only delete if the mech is not a base mech
+        if (selectedMech['baseMech']) {
+            callback(null, "Cannot delete a base mech");
+        }
+        else {
+          mechMod.collection.remove({_id: mechID}, function(error, result) {
+            if( error ) callback(error)
+            else callback(null, "Mech Deleted")
+          });
+        }
     });
 };
 
@@ -45,13 +62,19 @@ mechMod.prototype.save = function(mech, callback) {
     callback(null, "Error saving mech");
   }
   else {
-    createDate = new Date();
-    result = JSON.stringify(createDate);
-    mech.created_on = result.substring(1, result.length-1);
-    delete mech["_id"];
-    this.collection.insert(mech, function() {
-      callback(null, "Created new mech");
-    });
+    
+    if (mech['userName'] == null) {
+      callback(null, "Must be logged in to save mechs");
+    }
+    else {
+      createDate = new Date();
+      result = JSON.stringify(createDate);
+      mech.created_on = result.substring(1, result.length-1);
+      delete mech["_id"];
+      this.collection.insert(mech, function() {
+        callback(null, "Created new mech");
+      });
+    }
   }
 };
 
@@ -62,14 +85,24 @@ mechMod.prototype.patch = function(mech, callback) {
   }
   else {
     
-    this.collection.update(
-      {_id: mech._id},
-      {weight: mech.weight,
-       speed: mech.speed,
-       mechName: mech.mechName},
-      function(error, mech){
-        if( error ) callback(error);
-        else callback(null, "Mech Details Saved")
+    mechMod.findById(mech._id, function(error, selectedMech) {
+        
+        // Only save if the mech is not a base mech
+        if (selectedMech['baseMech']) {
+            callback(null, "Cannot save over a base mech");
+        }
+        else {
+          mechMod.collection.update(
+            {_id: mech._id},
+            {weight: mech.weight,
+             speed: mech.speed,
+             mechName: mech.mechName,
+             userName: mech.userName},
+            function(error, mech){
+              if( error ) callback(error);
+              else callback(null, "Mech Details Saved")
+          });
+        }
     });
   }
 };

@@ -3,11 +3,21 @@ var router = module.exports = express.Router();
 
 /* GET design page. */
 router.get('/design', function(req, res) {
-    mechMod.findAll( function(error,docs) {
-        res.render('design.jade', { 
-            title: 'Create your mech',
-            welcomeSec: "Welcome, " + req.cookies.userName,
-            mechs: docs
+    
+    mechMod.findAllBaseMechs( function(error, docs) {
+        
+        mechMod.findAllCustomMechs(req.cookies.userName, function(err, documents) {
+            
+            if (req.cookies.userName == null) {
+                documents = {};
+            }
+            
+            res.render('design.jade', { 
+                title: 'Create your mech',
+                welcomeSec: "Welcome, " + req.cookies.userName,
+                mechs: docs,
+                customMechs: documents
+            }); 
         });
     })
 });

@@ -10,7 +10,6 @@ $(document).ready(function() {
 		};
 		
 		if (processRegisterErrors(newUser) == true) {
-            console.log('user is good');
 			registerUser(newUser);
         }
 	});
@@ -38,6 +37,7 @@ function registerUser(newUser) {
 		dataType:"json",
 		success: function(response){
 			alert(response);
+			login(newUser);
 		}
 	});
 }

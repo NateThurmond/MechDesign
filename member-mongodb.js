@@ -66,40 +66,4 @@ members.prototype.checkForUser = function(userName, callback) {
   });
 };
 
-/*
-quotes.prototype.getDocCount = function(callback) {
-    var randomQuoteNum = 0;
-  
-    this.collection.count({}, function(err, count) {
-        randomQuoteNum = Math.floor(Math.random() * count);
-      
-        if( err ) callback(err)
-        else callback(null, randomQuoteNum.toString())
-    });
-};
-
-quotes.prototype.findRandom = function(docIndex, callback) {
-
-    this.collection.findOne({docNum: docIndex}, function(error, result) {
-      if( error ) callback(error)
-      else callback(null, result)
-    });
-};
-
-quotes.prototype.findById = function(id, callback) {
-    this.collection.findOne({_id: id}, function(error, result) {
-      if( error ) callback(error)
-      else callback(null, result)
-    });
-};
-
-quotes.prototype.findByName = function(name, callback) {
-    this.collection.findOne({mechName: name}, function(error, result) {
-      if( error ) callback(error)
-      else callback(null, result)
-    });
-};
-
-*/
-
 exports.members = members;
