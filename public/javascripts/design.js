@@ -110,14 +110,14 @@ $(document).ready(function() {
 	
 	$('#mechDetails_Weight_Down').click(function() {
 		var currentMechWeight = $('#mechDetails_Weight').html();
-		if ((currentMechWeight > 20) && (currentMechWeight < 100)) {
+		if ((currentMechWeight > 20) && (currentMechWeight <= 100)) {
 			$('#mechDetails_Weight').html((parseInt(currentMechWeight) - 1).toString());
 		}
 	});
 	
 	$('#mechDetails_Weight_Up').click(function() {
 		var currentMechWeight = $('#mechDetails_Weight').html();
-		if ((currentMechWeight > 20) && (currentMechWeight < 100)) {
+		if ((currentMechWeight >= 20) && (currentMechWeight < 100)) {
 			$('#mechDetails_Weight').html((parseInt(currentMechWeight) + 1).toString());
 		}
 	});

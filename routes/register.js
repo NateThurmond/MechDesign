@@ -24,11 +24,6 @@ router.post('/register/register/', function(req, res){
             res.json("That UserName already exists");
         }
     });
-    
-    
-    //members.insertUser(newUser, function(error, response){
-    //    res.json(response);
-    //})
 });
 
 /* POST to login user. */
