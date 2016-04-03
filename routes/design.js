@@ -14,6 +14,7 @@ router.get('/design', function(req, res) {
             
             res.render('design.jade', { 
                 title: 'Create your mech',
+                link2class: "linkHighlight",
                 welcomeSec: "Welcome, " + req.cookies.userName,
                 mechs: docs,
                 customMechs: documents

@@ -1,8 +1,10 @@
 $(document).ready(function() {
 
+	resizeWindow();
+
     $('.headerLink').hover(
 	function() {
-	    $(this).css('color', 'red');
+	    $(this).css('color', '#D65C33');
 	},
 	function() {
 	    $(this).css('color', 'white');
@@ -19,8 +21,27 @@ $(document).ready(function() {
 		$('#welcomeHideShow').removeClass('showHide');
 		$('#loginBox').addClass('showHide');
 	}
+	
+	$(window).resize(function() {
+		resizeWindow();
+	});
 
 });
+
+function resizeWindow() {
+	var docHeight = $(document).height();
+	var mainContentHeight = $('#mainContent').height();
+	var windowHeight = $(window).height();
+	
+	if (windowHeight > 900) {
+		$('#mainContent').height((windowHeight - 200));
+		$('#sideBar').height((windowHeight - 200));
+	}
+	else {
+		$('#mainContent').height("80%");
+		$('#sideBar').height((windowHeight - 200));
+	}
+}
 
 function getCookie(name) {
   var value = "; " + document.cookie;

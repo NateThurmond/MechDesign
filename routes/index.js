@@ -9,6 +9,7 @@ router.get('/', function(req, res) {
             
             res.render('index.jade', { 
                 title: 'Mech Design',
+                link1class: "linkHighlight",
                 quote: doc.quote,
                 welcomeSec: "Welcome, " + req.cookies.userName
             });
