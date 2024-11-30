@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "build-css": "sass public/stylesheets/",
+    "start": "node ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.13.1",
@@ -11,11 +12,11 @@
     "debug": "~2.2.0",
     "express": "~4.13.0",
     "jade": "~1.11.0",
-    "node-sass-middleware": "0.8.0",
+    "mongodb": "^4.4.0",
+    "monk": "^7.3.0",
     "morgan": "~1.6.1",
-    "serve-favicon": "~2.3.0",
-    "mongodb": "~2.0.33",
-    "monk": "~1.0.1"
+    "sass": "^1.81.0",
+    "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
     "express-livereload": "0.0.24"

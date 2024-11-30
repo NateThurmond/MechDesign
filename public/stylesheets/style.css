@@ -1,11 +1,13 @@
-#madCatLogo, #mainContent_design {
+#mainContent_design, #madCatLogo {
   height: 80%;
   width: 85%;
-  display: inline-block; }
+  display: inline-block;
+}
 
 #mechArmorDiagram {
   margin: 0px 0px 0px 0px;
-  padding: 0px 0px 0px 0px; }
+  padding: 0px 0px 0px 0px;
+}
 
 .sideBarLink {
   -webkit-touch-callout: none;
@@ -13,22 +15,26 @@
   -khtml-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none; }
+  user-select: none;
+}
 
 html, body {
   background: lightgrey;
   margin: 0px 0px 0px 0px;
-  height: 100%; }
+  height: 100%;
+}
 
 h1 {
   padding: 0px;
-  margin: 0px; }
+  margin: 0px;
+}
 
 #header {
   width: 100%;
   background: linear-gradient(#4d4d4d, #262626);
   color: white;
-  height: 100px; }
+  height: 100px;
+}
 
 #linkBar {
   display: inline-block;
@@ -38,34 +44,39 @@ h1 {
   height: 90px;
   margin: 5px 0px 5px 0px;
   padding: 0px 0px 0px 0px;
-  border-radius: 3px; }
-  #linkBar a {
-    text-shadow: -1px -1px 0 #000, 0px 0px 0 #000, 0px 0px 0 #000, 0px 0px 0 #000;
-    background: linear-gradient(grey, #b3b3b3);
-    display: inline-block;
-    position: relative;
-    text-decoration: none;
-    font-size: 22px;
-    padding: 0px 0px 0px 0px;
-    white-space: nowrap;
-    border: 2px solid #e6e6e6;
-    overflow: hidden;
-    border-radius: 5px;
-    top: 16%;
-    height: 48%;
-    vertical-align: center;
-    padding-top: 3%;
-    padding-left: 10px;
-    padding-right: 10px;
-    font-weight: bold;
-    color: white; }
-  #linkBar :last-child {
-    margin-right: 10px; }
-  #linkBar :first-child {
-    margin-left: 10px; }
+  border-radius: 3px;
+}
+#linkBar a {
+  text-shadow: -1px -1px 0 #000, 0px 0px 0 #000, 0px 0px 0 #000, 0px 0px 0 #000;
+  background: linear-gradient(grey, #b3b3b3);
+  display: inline-block;
+  position: relative;
+  text-decoration: none;
+  font-size: 22px;
+  padding: 0px 0px 0px 0px;
+  white-space: nowrap;
+  border: 2px solid #e6e6e6;
+  overflow: hidden;
+  border-radius: 5px;
+  top: 16%;
+  height: 48%;
+  vertical-align: center;
+  padding-top: 3%;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-weight: bold;
+  color: white;
+}
+#linkBar :last-child {
+  margin-right: 10px;
+}
+#linkBar :first-child {
+  margin-left: 10px;
+}
 
 .linkHighlight {
-  color: #D65C33 !important; }
+  color: #D65C33 !important;
+}
 
 #sideBar {
   min-height: 700px;
@@ -74,9 +85,11 @@ h1 {
   width: 15%;
   background: linear-gradient(to right, grey, #4d4d4d);
   color: red;
-  display: inline-block; }
-  #sideBar a {
-    display: block; }
+  display: inline-block;
+}
+#sideBar a {
+  display: block;
+}
 
 #mainContent {
   height: 80%;
@@ -86,19 +99,23 @@ h1 {
   background-image: url("../images/bg5.jpg");
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 100% 100%; }
-  #mainContent h1 {
-    display: block;
-    text-align: center; }
-  #mainContent p {
-    display: block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-align: center; }
+  background-size: 100% 100%;
+}
+#mainContent h1 {
+  display: block;
+  text-align: center;
+}
+#mainContent p {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: center;
+}
 
 .quoteOfDay, .indexTitle {
   color: white;
-  vertical-align: top; }
+  vertical-align: top;
+}
 
 #madCatLogo {
   display: block;
@@ -107,7 +124,8 @@ h1 {
   background-image: url("../images/madcatblueprint.jpg");
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 60% 80%; }
+  background-size: 60% 80%;
+}
 
 #mainContent_design {
   color: white;
@@ -115,14 +133,16 @@ h1 {
   background-image: url("../images/bg5.jpg");
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 100% 100%; }
-  #mainContent_design .popoutControl {
-    display: none;
-    position: absolute;
-    top: 70px;
-    width: 300px;
-    height: 80%;
-    background-color: lightgrey; }
+  background-size: 100% 100%;
+}
+#mainContent_design .popoutControl {
+  display: none;
+  position: absolute;
+  top: 70px;
+  width: 300px;
+  height: 80%;
+  background-color: lightgrey;
+}
 
 #footer {
   vertical-align: top;
@@ -132,13 +152,16 @@ h1 {
   width: 100%;
   background: linear-gradient(#262626, #4d4d4d);
   text-align: right;
-  color: white; }
-  #footer p {
-    padding-top: 40px;
-    margin: 0px 50px 0px 0px; }
+  color: white;
+}
+#footer p {
+  padding-top: 40px;
+  margin: 0px 50px 0px 0px;
+}
 
 .sideBarLink {
-  cursor: pointer; }
+  cursor: pointer;
+}
 
 #mechBaseSelector, #mechCustomSelector {
   display: none;
@@ -149,7 +172,8 @@ h1 {
   top: 70px;
   width: 300px;
   height: 80%;
-  background-color: black; }
+  background-color: black;
+}
 
 #mechDetails {
   display: inline-block;
@@ -157,31 +181,36 @@ h1 {
   left: 15%;
   top: 70px;
   width: 300px;
-  height: 79%; }
-  #mechDetails h2 {
-    margin-bottom: 5px;
-    margin-top: 5px; }
+  height: 79%;
+}
+#mechDetails h2 {
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
 
 #mechDetails_Name {
   display: inline-block;
-  width: 100px; }
+  width: 100px;
+}
 
 #mechArmorSections {
   display: inline-block;
   position: absolute;
   left: calc(15% + 300px);
   top: 70px;
-  width: calc(.7 * (85% - 300px));
-  height: 79%; }
-  #mechArmorSections #mechArmorHead {
-    position: static;
-    text-align: center;
-    width: 14%;
-    height: 11%;
-    background-color: rgba(255, 0, 0, 0.4);
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10%; }
+  width: calc(0.7 * (85% - 300px));
+  height: 79%;
+}
+#mechArmorSections #mechArmorHead {
+  position: static;
+  text-align: center;
+  width: 14%;
+  height: 11%;
+  background-color: rgba(255, 0, 0, 0.4);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10%;
+}
 
 #mechArmorDiagram {
   display: inline-block;
@@ -190,37 +219,46 @@ h1 {
   background-image: url("../images/emptymech.jpg");
   background-repeat: no-repeat;
   background-position: 300px left;
-  background-size: 70% 100%; }
+  background-size: 70% 100%;
+}
 
 .showHide {
-  display: inline-block !important; }
+  display: inline-block !important;
+}
 
 .stat_Change {
   top: 3px;
   width: 30px;
-  display: inline-block; }
+  display: inline-block;
+}
 
 #mechDetails_Weight, #mechDetails_Speed, #mechDetails_Name_label {
   width: 69px;
   display: inline-block;
-  margin: 10px 0px 10px 0px; }
+  margin: 10px 0px 10px 0px;
+}
 
 #mechDetails_Name_label {
-  width: 130px; }
+  width: 130px;
+}
 
 #mechSave_Submit_Div {
   text-align: center;
-  margin-top: 15px; }
+  margin-top: 15px;
+}
 
 #mechDetails_oid {
-  display: none; }
+  display: none;
+}
 
 .inlineLabel {
   display: inline-block;
-  width: 62px; }
+  width: 62px;
+}
 
 .registerError {
-  color: white; }
+  color: white;
+}
 
 #registerBox {
   display: none;
@@ -233,7 +271,8 @@ h1 {
   background-color: grey;
   text-align: center;
   border: 2px solid black;
-  border-radius: 2px; }
+  border-radius: 2px;
+}
 
 #registerBox input, #registerBox p {
   width: 200px;
@@ -243,29 +282,36 @@ h1 {
   margin-top: 2px;
   margin-bottom: 2px;
   margin-left: auto;
-  margin-right: auto; }
+  margin-right: auto;
+}
 
 #registerUserName {
-  margin-top: 10px !important; }
+  margin-top: 10px !important;
+}
 
 #registerSubmit {
-  margin-top: 10px; }
+  margin-top: 10px;
+}
 
 #loginBox {
-  display: none; }
+  display: none;
+}
 
 #loginButtons {
   margin-top: 5px;
-  text-align: center; }
+  text-align: center;
+}
 
 #loginUserName, #loginPass {
   width: 80%;
   margin-left: 9%;
   margin-top: 5px;
-  margin-bottom: 5px; }
+  margin-bottom: 5px;
+}
 
 #login {
-  margin-right: 5px; }
+  margin-right: 5px;
+}
 
 #welcomeSec {
   display: inline-block;
@@ -275,14 +321,17 @@ h1 {
   height: 80px;
   color: white;
   text-align: center;
-  padding-top: 14px; }
+  padding-top: 14px;
+}
 
 #welcomeHideShow {
-  display: none; }
+  display: none;
+}
 
 #welcomeHideShow p {
   font-size: 20px;
   margin-top: 0px;
-  margin-bottom: 8px; }
+  margin-bottom: 8px;
+}
 
 /*# sourceMappingURL=style.css.map */
