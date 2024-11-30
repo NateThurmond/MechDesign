@@ -1,50 +1,45 @@
-var express = require('express');
-var router = module.exports = express.Router();
+var express = require("express");
+var router = (module.exports = express.Router());
 
 /* GET registration page. */
-router.get('/register', function(req, res){
-    
-    res.render('register.jade', { 
-        title: 'Register new account'
+router.get("/register", function (req, res) {
+    res.render("register.pug", {
+        title: "Register new account",
     });
 });
 
 /* POST to save new user. */
-router.post('/register/register/', function(req, res){
+router.post("/register/register/", function (req, res) {
     newUser = req.body;
-    
-    members.checkForUser(newUser.userName, function(err, userCount) {
-        
+
+    members.checkForUser(newUser.userName, function (err, userCount) {
         if (userCount == 0) {
-            members.insertUser(newUser, function(error, response){
+            members.insertUser(newUser, function (error, response) {
                 res.json(response);
-            })
-        }
-        else {
+            });
+        } else {
             res.json("That UserName already exists");
         }
     });
 });
 
 /* POST to login user. */
-router.post('/register/login/', function(req, res) {
+router.post("/register/login/", function (req, res) {
     user = req.body;
-    
-    members.login(user, function(err, response) {
-        
+
+    members.login(user, function (err, response) {
         if (response == "Log in successful") {
-            res.cookie('userName', user.userName, { maxAge: 14400000, httpOnly: false });
-            res.cookie('selectedMech', 'Spider', { maxAge: 14400000, httpOnly: false });
+            res.cookie("userName", user.userName, { maxAge: 14400000, httpOnly: false });
+            res.cookie("selectedMech", "Spider", { maxAge: 14400000, httpOnly: false });
         }
-        
+
         res.json(response);
     });
 });
 
 /* POST to login user. */
-router.post('/register/logout/', function(req, res) {
-    
-    res.clearCookie('userName');
-    res.clearCookie('selectedMech');
+router.post("/register/logout/", function (req, res) {
+    res.clearCookie("userName");
+    res.clearCookie("selectedMech");
     res.json("Logged out");
 });
