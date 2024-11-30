@@ -15,6 +15,7 @@ services:
             MYSQL_DATABASE: ${MYSQL_DATABASE}
             MYSQL_USER: ${MYSQL_USER}
             MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        command: npm run dev # or comment out for prod
 
     db:
         image: mysql:8.0 # Use MySQL 8.0

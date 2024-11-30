@@ -32,9 +32,9 @@ var indexRoutes = require("./routes/index");
 var designRoutes = require("./routes/design");
 var registerRoutes = require("./routes/register");
 
-app.use(indexRoutes);
-app.use(designRoutes);
-app.use(registerRoutes);
+app.use("/", indexRoutes);
+app.use("/design", designRoutes);
+app.use("/register", registerRoutes);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
