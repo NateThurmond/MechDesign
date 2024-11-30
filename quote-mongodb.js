@@ -3,7 +3,7 @@ var mongodb = require("mongodb");
 var monk = require("monk");
 
 quotes = function() {
-  this.db = monk("localhost:27017/mechDesign");
+  this.db = monk(process.env.MONGO_URI);
   this.collection = this.db.get('quotes');
   
   this.setCollection = function(collection) {

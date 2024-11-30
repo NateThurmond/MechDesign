@@ -1,10 +1,10 @@
 extends layout
 
 block header
-  include header
+  include header.pug
 
 block sideBar
-  include sideBar
+  include sideBar.pug
 
 block mainContent
   div(id="mechBaseSelector")
@@ -46,9 +46,9 @@ block mainContent
   div(id="mechArmorDiagram")
   
 block register
-  include register
+  include register.pug
 
 block footer
-  include footer
+  include footer.pug
 
   script(src='/javascripts/design.js')
