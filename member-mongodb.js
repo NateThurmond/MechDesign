@@ -2,7 +2,7 @@ var mongodb = require("mongodb");
 var monk = require("monk");
 
 members = function() {
-  this.db = monk("localhost:27017/mechDesign");
+  this.db = monk(process.env.MONGO_URI);
   this.collection = this.db.get('members');
   
   this.setCollection = function(collection) {

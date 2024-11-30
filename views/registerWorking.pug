@@ -1,7 +1,7 @@
 extends layout
 
 block header
-  include header
+  include header.pug
 
 block mainContent
   div(id="mainContent")
@@ -17,6 +17,6 @@ block mainContent
     button(id="login") Login
 
 block footer
-  include footer
+  include footer.pug
 
   script(src='/javascripts/register.js')

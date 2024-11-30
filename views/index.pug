@@ -1,11 +1,11 @@
 extends layout
 
 block header
-  include header
+  include header.pug
 
 block sideBar  
   block login
-    include login
+    include login.pug
 
 block mainContent
   div(id="mainContent")
@@ -14,7 +14,7 @@ block mainContent
     p.quoteOfDay #{quote}
     
 block register
-  include register
+  include register.pug
 
 block footer
-  include footer
+  include footer.pug
