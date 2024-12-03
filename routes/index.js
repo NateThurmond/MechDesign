@@ -9,6 +9,7 @@ router.get("/", function (req, res) {
                 title: "Mech Design",
                 link1class: "linkHighlight",
                 quote: doc.quote,
+                authorAndNote: doc?.authorAndNote || "",
                 /* TO-DO: Still need to fix and implement mongo users */
                 // welcomeSec: "Welcome, " + req.cookies.userName,
                 welcomeSec: "Welcome, Test User",

@@ -12,6 +12,7 @@ block mainContent
     h1.indexTitle= title
     div(id="madCatLogo")
     p.quoteOfDay #{quote}
+    p.smallText #{authorAndNote ? '- ' + authorAndNote : ''}
     
 block register
   include register.pug

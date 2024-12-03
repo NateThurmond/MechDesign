@@ -161,10 +161,25 @@ const result = db.mechs.insertOne({
 
 print("Inserted document ID: mechs:", result.insertedId);
 
-const quoteResult = db.quotes.insertOne({
-    quote: "I can't find that armor sir! If you want the ton of armor, you are going to have to drop a laser!",
-    docNum: "0",
-    mechName: "MadCat",
-});
+const quoteResults = db.quotes.insertMany([
+    {
+        quote: "I can't work miracles, sir! If you want an extra two tons of armor, you gotta lose two medium lasers.",
+        docNum: "0",
+        mechName: "MadCat",
+        authorAndNote: "Sergeant Marty Rumble, 10th Lyran Guards",
+    },
+    {
+        quote: "It's not the size of the mech that counts, it's how you use it!",
+        docNum: "1",
+        mechName: "Atlas",
+        authorAndNote: "Captain Jax Slade, 2nd Battalion",
+    },
+    {
+        quote: "Stay cool, stay calm, and keep firing.",
+        docNum: "2",
+        mechName: "Warhammer",
+        authorAndNote: "Lieutenant Jenna Keeler, 9th Draconis Combine",
+    },
+]);
 
-print("Inserted document ID: quotes:", quoteResult.insertedId);
+Object.values(quoteResults.insertedIds).forEach(id => print("Inserted document ID: quotes:", id));
