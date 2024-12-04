@@ -23,7 +23,39 @@ $design_mechview_bg: url('../images/emptymech.jpg')
   -moz-user-select: none
   -ms-user-select: none
   user-select: none
+
+.sideBarLink
+  -webkit-touch-callout: none
+  -webkit-user-select: none
+  -khtml-user-select: none
+  -moz-user-select: none
+  -ms-user-select: none
+  user-select: none
  
+/* Style for the news section */
+#news
+  color: white /* Default text color for the news section */
+
+  h2
+    color: white /* White text color for the "Latest News" heading */
+    text-align: center
+    margin: 50px auto 10px auto
+
+  ul
+    list-style: none /* Remove default bullet points */
+    padding: 0
+
+  li
+    display: flex /* Use flexbox to align the icon and text */
+    align-items: center
+    margin-bottom: 10px /* Add some space between news items */
+
+  #newsIcons
+    margin-right: 10px /* Add some space between the icon and the text */
+
+.navNews
+  color: white /* White text color for the news content */
+
 html, body
   background: lightgrey
   margin: 0px 0px 0px 0px
@@ -108,6 +140,10 @@ h1
 .quoteOfDay, .indexTitle
   color: white
   vertical-align: top
+
+.smallText
+  font-size: 0.8em
+  color: #fff
   
 #madCatLogo
   @extend %mainContent_prop
