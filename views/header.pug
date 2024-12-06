@@ -4,7 +4,13 @@ block header
       p.welcomeStr #{welcomeSec}
       button(id="logout") Logout
   div(id="linkBar")
-    a(href="/", class="headerLink #{link1class}") Home Page
-    a(href="/design", class="headerLink #{link2class}") Design
-    a(href="/about", class="headerLink") About
-    a(href="http://www.camospecs.com", class="headerLink") CamoSpecs
+    div
+      a(href="/", class="headerLink") Home Page
+    div
+      a(href="/design", class="headerLink") Design
+    div.expandableLink
+      a(href="#" class="headerLink headerLinkExpand") Resources
+      div.slider
+        a(href="http://www.camospecs.com") CamoSpecs
+        a(href="http://www.solarisskunkwerks.com/") Skunk-Werks
+        a(href="http://www.battletech.com/") Battletech.com
