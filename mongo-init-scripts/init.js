@@ -180,6 +180,12 @@ const quoteResults = db.quotes.insertMany([
         mechName: "Warhammer",
         authorAndNote: "Lieutenant Jenna Keeler, 9th Draconis Combine",
     },
+    {
+        quote: "No guts, no galaxy.",
+        docNum: "3",
+        mechName: "Timber Wolf",
+        authorAndNote: "Star Colonel Aidan Pryde, Clan Jade Falcon",
+    },
 ]);
 
-Object.values(quoteResults.insertedIds).forEach(id => print("Inserted document ID: quotes:", id));
+Object.values(quoteResults.insertedIds).forEach((id) => print("Inserted document ID: quotes:", id));
