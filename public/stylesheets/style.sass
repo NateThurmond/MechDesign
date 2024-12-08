@@ -182,16 +182,17 @@ h1
   border-radius: 5px
   z-index: 100
   background: grey
-  top: -185px
+  left: 15%
   color: white
   font-size: 25px
   padding-top: 10px
   text-align: center
+  transition: top 0.5s ease-in-out
+  margin: 0
+  top: -185px // Initially set high so it can come in off page
 
 .popoutTab
   width: 700px
-  margin-left: 200px
-  margin-top: 315px
   height: 500px
 
 .popoutTab2
@@ -200,20 +201,14 @@ h1
   background-position: center center
   background-repeat: no-repeat
   width: 340px
-  margin-left: 201px
-  margin-top: 315px
   height: 590px
 
 .popoutTab3
   width: 700px
-  margin-left: 200px
-  margin-top: 315px
   height: 500px
 
 .popoutTab4
   width: 700px
-  margin-left: 200px
-  margin-top: 315px
   height: 500px
 
 .highlighted2
@@ -221,6 +216,14 @@ h1
   box-shadow: 6px 6px 5px black
   outline-color: blue
   cursor: pointer
+
+.blur
+  -webkit-filter: blur(4px)
+  -moz-filter: blur(4px)
+  -ms-filter: blur(4px)
+  -o-filter: blur(4px)
+  filter: blur(4px)
+  pointer-events: none
 
 #mainContent
   height: 80%

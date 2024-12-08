@@ -6,6 +6,33 @@ $(document).ready(function () {
         $("#link_1").css("display", "block");
     }
 
+    $("#mechSelector").on("click", function () {
+        let posVis = $(".popoutClass:visible").length;
+        if (posVis > 0) {
+            hidePopout();
+        } else {
+            showPopout("popoutTab");
+        }
+    });
+
+    $("#armorSelector").on("click", function () {
+        let posVis = $(".popoutClass:visible").length;
+        if (posVis > 0) {
+            hidePopout();
+        } else {
+            showPopout("popoutTab2");
+        }
+    });
+
+    $("#weaponSelector").on("click", function () {
+        let posVis = $(".popoutClass:visible").length;
+        if (posVis > 0) {
+            hidePopout();
+        } else {
+            showPopout("popoutTab3");
+        }
+    });
+
     $(".selector").hover(
         function () {
             $(this).addClass("highlighted2");
@@ -180,5 +207,28 @@ function deleteMech(mechID) {
                 window.open("/design", "_self");
             }
         },
+    });
+}
+
+function showPopout(popoutId) {
+    // Re-enable link bar at top
+    $("#linkBar").addClass("blur");
+    // Show the selected popout div
+    var popout = document.querySelector("." + popoutId);
+    if (popout) {
+        popout.style.display = "block";
+        setTimeout(function () {
+            popout.style.top = "140px";
+        }, 10); // Small delay to trigger the transition
+    }
+}
+
+function hidePopout() {
+    // Hide header bar to eliminate confusion in UI navigation
+    $("#linkBar").removeClass("blur");
+    // Hide all popout divs
+    document.querySelectorAll(".popoutClass").forEach(function (popout) {
+        popout.style.display = "none";
+        popout.style.top = "-185px";
     });
 }
