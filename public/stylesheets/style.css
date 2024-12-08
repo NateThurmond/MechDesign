@@ -4,6 +4,20 @@
   display: inline-block;
 }
 
+#main {
+  background-image: url(../images/bg5.jpg);
+  background-size: cover;
+  background-position: center, center;
+  background-repeat: no-repeat;
+  background-color: lightgrey;
+  position: absolute;
+  top: 100px;
+  right: 0px;
+  left: max(15%, 200px);
+  display: inline-block;
+  min-height: 700px;
+}
+
 #mechArmorDiagram {
   margin: 0px 0px 0px 0px;
   padding: 0px 0px 0px 0px;
@@ -165,6 +179,7 @@ h1 {
   background: linear-gradient(to right, goldenrod -50%, #D65C33 70%);
   color: lightslategray;
   display: inline-block;
+  min-width: 200px;
 }
 #sideBar a {
   display: block;
@@ -234,7 +249,8 @@ h1 {
 }
 
 .highlighted2 {
-  background-color: #F9EDBE;
+  color: white;
+  background-color: goldenrod;
   box-shadow: 6px 6px 5px black;
   outline-color: blue;
   cursor: pointer;
@@ -345,6 +361,7 @@ h1 {
   top: 70px;
   width: 300px;
   height: 79%;
+  color: white;
 }
 #mechDetails h2 {
   margin-bottom: 5px;
@@ -359,10 +376,16 @@ h1 {
 #mechArmorSections {
   display: inline-block;
   position: absolute;
-  left: calc(15% + 300px);
-  top: 70px;
   width: calc(0.7 * (85% - 300px));
   height: 79%;
+  background-image: url("/images/emptymech.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-color: lightgrey;
+  left: 335px;
+  border: 4px solid #d65c33;
+  height: 650px;
+  width: 550px;
 }
 #mechArmorSections #mechArmorHead {
   position: static;
@@ -480,8 +503,8 @@ h1 {
 #welcomeSec {
   display: inline-block;
   margin: 0px 0px 10px 0px;
-  max-width: 15%;
-  min-width: 15%;
+  width: 15%;
+  min-width: 200px;
   height: 80px;
   color: white;
   text-align: center;
