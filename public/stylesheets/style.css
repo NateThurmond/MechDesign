@@ -44,6 +44,8 @@
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 #news #newsIcons {
   margin-right: 10px;
@@ -54,7 +56,7 @@
 }
 
 html, body {
-  background: lightgrey;
+  background: dimgrey;
   margin: 0px 0px 0px 0px;
   height: 100%;
 }
@@ -101,10 +103,9 @@ h1 {
 #linkBar {
   display: inline-block;
   position: absolute;
-  background: grey;
   width: auto;
   height: 90px;
-  margin: 5px 0px 5px 0px;
+  margin: 2px 0px 5px 1%;
   padding: 0px 0px 0px 0px;
   border-radius: 5px;
 }
@@ -117,7 +118,7 @@ h1 {
   font-size: 22px;
   padding: 0px 0px 0px 0px;
   white-space: nowrap;
-  border: 2px solid #e6e6e6;
+  border: 2px solid goldenrod;
   border-radius: 5px;
   top: 16%;
   height: 48%;
@@ -129,6 +130,7 @@ h1 {
   color: white;
   text-align: center;
   width: 125px;
+  margin-right: 5px;
 }
 #linkBar > :last-child {
   margin-right: 10px;
@@ -160,7 +162,7 @@ h1 {
   vertical-align: top;
   height: 80%;
   width: 15%;
-  background: linear-gradient(to right, grey, #4d4d4d);
+  background: linear-gradient(to right, goldenrod -50%, #D65C33 70%);
   color: lightslategray;
   display: inline-block;
 }
@@ -173,6 +175,7 @@ h1 {
   width: 200px;
   clear: both;
   margin: auto;
+  margin-top: 52px;
 }
 
 .selector {
@@ -455,6 +458,7 @@ h1 {
 
 #loginBox {
   display: none;
+  margin-top: 20px;
 }
 
 #loginButtons {
@@ -475,13 +479,19 @@ h1 {
 
 #welcomeSec {
   display: inline-block;
-  margin: 10px 0px 10px 0px;
+  margin: 0px 0px 10px 0px;
   max-width: 15%;
   min-width: 15%;
   height: 80px;
   color: white;
   text-align: center;
   padding-top: 14px;
+  background-image: url("../images/btLogoFinalFinal.jpg");
+  background-position: center;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-blend-mode: soft-light;
+  background-color: transparent;
 }
 
 #welcomeHideShow {
