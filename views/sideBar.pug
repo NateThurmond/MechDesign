@@ -2,8 +2,20 @@ block sideBar
   block login
     include login.pug
   div(id="mechsideBar")
-    p.selector(id="mechSelector" onclick="pickMechs()") Select a different mech
+    p.selector(id="mechSelector") Select a different mech
     div.popoutClass.popoutTab
+      p Select a Mech
+      hr.dividerBar
+      div(id="mechSelect")
+        table.mechPickTable(border="1")
+          tbody
+            tr
+              th Mech Name
+              th Mech Model
+              th Armor
+              th Movement
+              th Tonnage
+              th Intro Date
 
     p.selector(id="armorSelector") Armor
     div.popoutClass.popoutTab2

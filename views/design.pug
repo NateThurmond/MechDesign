@@ -7,6 +7,8 @@ block sideBar
   include sideBar.pug
 
 block mainContent
+  script.
+    var fullMechData = !{JSON.stringify(fullMechData)};
   div(id="mechBaseSelector")
     each mech in mechs
       -if (typeof(mech.mechName) != 'undefined') {

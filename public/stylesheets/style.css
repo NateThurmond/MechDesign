@@ -286,6 +286,14 @@ h1 {
   text-align: center;
 }
 
+.mechPickTable {
+  font-size: 15px;
+  width: 695px;
+}
+.mechPickTable a {
+  color: white;
+}
+
 .quoteOfDay, .indexTitle {
   color: white;
   vertical-align: top;
