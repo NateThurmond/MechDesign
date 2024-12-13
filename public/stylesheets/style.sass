@@ -11,6 +11,19 @@ $design_mechview_bg: url('../images/emptymech.jpg')
   height: 80%
   width: 85%
   display: inline-block
+
+#main
+  background-image: url(../images/bg5.jpg)
+  background-size: cover
+  background-position: center, center
+  background-repeat: no-repeat
+  background-color: lightgrey
+  position: absolute
+  top: 100px
+  right: 0px
+  left: max(15%, 200px)
+  display: inline-block
+  min-height: 700px
   
 %noBorder
   margin: 0px 0px 0px 0px
@@ -49,6 +62,8 @@ $design_mechview_bg: url('../images/emptymech.jpg')
     display: flex /* Use flexbox to align the icon and text */
     align-items: center
     margin-bottom: 10px /* Add some space between news items */
+    padding-left: 10px
+    padding-right: 10px
 
   #newsIcons
     margin-right: 10px /* Add some space between the icon and the text */
@@ -57,7 +72,7 @@ $design_mechview_bg: url('../images/emptymech.jpg')
   color: white /* White text color for the news content */
 
 html, body
-  background: lightgrey
+  background: dimgrey
   margin: 0px 0px 0px 0px
   height: 100%
 
@@ -98,10 +113,9 @@ h1
 #linkBar
   display: inline-block
   position: absolute
-  background: grey
   width: auto
   height: 90px
-  margin: 5px 0px 5px 0px
+  margin: 2px 0px 5px 1%
   padding: 0px 0px 0px 0px
   border-radius: 5px
   div
@@ -113,7 +127,7 @@ h1
     font-size: 22px
     padding: 0px 0px 0px 0px
     white-space: nowrap
-    border: 2px solid #e6e6e6
+    border: 2px solid goldenrod
     border-radius: 5px
     top: 16%
     height: 48%
@@ -125,6 +139,7 @@ h1
     color: white
     text-align: center
     width: 125px
+    margin-right: 5px
   > :last-child
     margin-right: 10px
   > :first-child
@@ -150,11 +165,83 @@ h1
   vertical-align: top
   height: 80%
   width: 15%
-  background: linear-gradient(to right, grey, #4d4d4d)
-  color: red
+  background: linear-gradient(to right, goldenrod -50%, #D65C33 70%)
+  color: lightslategray
   display: inline-block
+  min-width: 200px
   a
     display: block
+
+#mechsideBar
+  text-align: center
+  width: 200px
+  clear: both
+  margin: auto
+  margin-top: 52px
+
+.selector
+  margin-top: 30px
+  margin-left: 8px
+  background-color: white
+  text-align: center
+  border: 2px solid black
+  border-radius: 5px
+  width: 180px
+  font-size: 12px
+  font-weight: bold
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif
+  color: black
+
+.popoutClass
+  display: none
+  position: absolute
+  border: 6px solid black
+  border-radius: 5px
+  z-index: 100
+  background: grey
+  left: 15%
+  color: white
+  font-size: 25px
+  padding-top: 10px
+  text-align: center
+  transition: top 0.5s ease-in-out
+  margin: 0
+  top: -185px // Initially set high so it can come in off page
+
+.popoutTab
+  width: 700px
+  height: 500px
+
+.popoutTab2
+  background-image: url('../images/mechArmor5.jpg')
+  background-size: 290px 500px
+  background-position: center center
+  background-repeat: no-repeat
+  width: 340px
+  height: 590px
+
+.popoutTab3
+  width: 700px
+  height: 500px
+
+.popoutTab4
+  width: 700px
+  height: 500px
+
+.highlighted2
+  color: white
+  background-color: goldenrod
+  box-shadow: 6px 6px 5px black
+  outline-color: blue
+  cursor: pointer
+
+.blur
+  -webkit-filter: blur(4px)
+  -moz-filter: blur(4px)
+  -ms-filter: blur(4px)
+  -o-filter: blur(4px)
+  filter: blur(4px)
+  pointer-events: none
 
 #mainContent
   height: 80%
@@ -173,6 +260,12 @@ h1
     white-space: nowrap
     overflow: hidden
     text-align: center
+
+.mechPickTable
+  font-size: 15px
+  width: 695px
+  a
+    color: white
       
 .quoteOfDay, .indexTitle
   color: white
@@ -243,6 +336,7 @@ h1
   top: 70px
   width: 300px
   height: 79%
+  color: white
   h2
     margin-bottom: 5px
     margin-top: 5px
@@ -254,10 +348,16 @@ h1
 #mechArmorSections
   display: inline-block
   position: absolute
-  left: calc(15% + 300px)
-  top: 70px
   width: calc(.7 * (85% - 300px))
   height: 79%
+  background-image: url('/images/emptymech.jpg')
+  background-position: center center
+  background-repeat: no-repeat
+  background-color: lightgrey
+  left: 335px
+  border: 4px solid #d65c33
+  height: 650px
+  width: 550px
   #mechArmorHead
     position: static
     text-align: center
@@ -339,6 +439,7 @@ h1
   
 #loginBox
   display: none
+  margin-top: 20px
   
 #loginButtons
   margin-top: 5px
@@ -355,13 +456,19 @@ h1
   
 #welcomeSec
   display: inline-block
-  margin: 10px 0px 10px 0px
-  max-width: 15%
-  min-width: 15%
+  margin: 0px 0px 10px 0px
+  width: 15%
+  min-width: 200px
   height: 80px
   color: white
   text-align: center
   padding-top: 14px
+  background-image: url('../images/btLogoFinalFinal.jpg')
+  background-position: center
+  background-size: 100%
+  background-repeat: no-repeat
+  background-blend-mode: soft-light
+  background-color: transparent
   
 #welcomeHideShow
   display: none

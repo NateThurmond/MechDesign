@@ -15,15 +15,34 @@ router.get("/", function (req, res) {
                 welcomeSec: "Welcome, " + req.cookies.userName,
                 mechs: docs,
                 customMechs: documents,
+                fullMechData: {},
             });
         });
+    });
+});
+
+/* List mechs for choosing */
+router.get("/mechs/list", function (req, res) {
+    mechMod.listAllBaseMechs(function (err, mechs) {
+        res.json(mechs);
     });
 });
 
 /* GET mech for design page. */
 router.get("/:id", function (req, res) {
     mechMod.findById(req.params.id, function (error, selectedMech) {
-        res.json(selectedMech);
+        // Just return the data
+        // res.json(selectedMech);
+
+        // Render the page for the specific mech specified
+        res.render("design.pug", {
+            title: "Create your mech",
+            link2class: "linkHighlight",
+            welcomeSec: "Welcome, " + req.cookies.userName,
+            mechs: [selectedMech],
+            customMechs: [selectedMech],
+            fullMechData: selectedMech,
+        });
     });
 });
 

@@ -7,6 +7,8 @@ block sideBar
   include sideBar.pug
 
 block mainContent
+  script.
+    var fullMechData = !{JSON.stringify(fullMechData)};
   div(id="mechBaseSelector")
     each mech in mechs
       -if (typeof(mech.mechName) != 'undefined') {
@@ -21,29 +23,30 @@ block mainContent
       p Speed: #{mech.speed} Weight: #{mech.weight} Primary Weapon: #{mech.weapon1}
       -}
       
-  div(id="mechDetails")
-    input(id="mechDetails_oid" name="_id")
-    div
-      p(id="mechDetails_Name_label") Mech Name:
-      input(id="mechDetails_Name" name="mechName")
-    div
-      p(class="inlineLabel") Weight: 
-      p(id="mechDetails_Weight" name="weight")
-      input(id="mechDetails_Weight_Up" class="stat_Change" type="button")
-      input(id="mechDetails_Weight_Down" class="stat_Change" type="button")
-    div
-      p(class="inlineLabel") Speed: 
-      p(id="mechDetails_Speed" name="speed")
-      input(id="mechDetails_Speed_Up" class="stat_Change" type="button")
-      input(id="mechDetails_Speed_Down" class="stat_Change" type="button")
-    div(id="mechSave_Submit_Div")
-      input(id="mechDetails_save" type="button" value="Save Mech")
-      input(id="mechDetails_delete" type="button" value="Delete Mech")
-    
-  div(id="mechArmorSections")
-    div(id="mechArmorHead")
-    
-  div(id="mechArmorDiagram")
+  div(id="main")
+    div(id="mechDetails")
+      input(id="mechDetails_oid" name="_id")
+      div
+        p(id="mechDetails_Name_label") Mech Name:
+        input(id="mechDetails_Name" name="mechName")
+      div
+        p(class="inlineLabel") Weight:
+        p(id="mechDetails_Weight" name="weight")
+        input(id="mechDetails_Weight_Up" class="stat_Change" type="button")
+        input(id="mechDetails_Weight_Down" class="stat_Change" type="button")
+      div
+        p(class="inlineLabel") Speed:
+        p(id="mechDetails_Speed" name="speed")
+        input(id="mechDetails_Speed_Up" class="stat_Change" type="button")
+        input(id="mechDetails_Speed_Down" class="stat_Change" type="button")
+      div(id="mechSave_Submit_Div")
+        input(id="mechDetails_save" type="button" value="Save Mech")
+        input(id="mechDetails_delete" type="button" value="Delete Mech")
+
+    div(id="mechArmorSections")
+      div(id="mechArmorHead")
+
+    div(id="mechArmorDiagram")
   
 block register
   include register.pug
