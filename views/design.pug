@@ -25,24 +25,129 @@ block mainContent
       
   div(id="main")
     div(id="mechHeader")
-      div(id="mechDetails")
-        input(id="mechDetails_oid" name="_id")
-        div
-          p(id="mechDetails_Name_label") Mech Name:
-          input(id="mechDetails_Name" name="mechName")
-        div
-          p(class="inlineLabel") Weight:
-          p(id="mechDetails_Weight" name="weight")
-          input(id="mechDetails_Weight_Up" class="stat_Change" type="button")
-          input(id="mechDetails_Weight_Down" class="stat_Change" type="button")
-        div
-          p(class="inlineLabel") Speed:
-          p(id="mechDetails_Speed" name="speed")
-          input(id="mechDetails_Speed_Up" class="stat_Change" type="button")
-          input(id="mechDetails_Speed_Down" class="stat_Change" type="button")
-        div(id="mechSave_Submit_Div")
-          input(id="mechDetails_save" type="button" value="Save Mech")
-          input(id="mechDetails_delete" type="button" value="Delete Mech")
+      form(method="post" id="mechDetailsColumn")
+        h1.mechFormHeaders Mech Name
+        h1.mechFormHeaders.mechModelInputHeader Model
+        input(type="text" class="mechDataInputBox" name="mechName" placeholder="" value=fullMechData.mechs_mechName || '')
+        input(type="text" class="mechDataInputBox" name="mechModel" placeholder="" value=fullMechData.mechs_mechModel || '')
+
+        #mechHeaderLeftCol
+          h4 Historical Data
+          .detailsTextDisplay#mechDetails1
+            p
+              strong#indMechEra Era: #{fullMechData.mechs_era || 'Star League'}
+            p
+              strong#indMechTechBase Tech Base: #{fullMechData.mechs_techBase || 'Clan'}
+            p
+              strong#indMechProdYear Production Year: #{fullMechData.mechs_introDate || '3030'}
+
+          h4 Engine Details
+          .detailsTextDisplay#mechEngineDetails
+            p(style="display: inline-block;")
+              strong Engine:
+            select(name="engineType" id="engineDropDown" onchange="updateEngine(this.value);")
+              option(value="XL Engine") XL Engine
+              option(value="Fusion Engine") Fusion Engine
+            div(style="margin-top: -6px; height: 15px;")
+              p(style="display: inline-block;")
+                strong Engine Rating: &nbsp;&nbsp;&nbsp;
+              p#mechEngineRating(style="display: inline-block;") #{fullMechData.mechengine_engineRating || '2'}
+
+            #mechWalk Walk: &nbsp;
+              p(style="display: inline-block; font-weight: normal;") 
+              input(type="text" class="movementValues" style="margin-left: 2px;" value=fullMechData.mechengine_mechWalk || '5' readonly="")
+              img(src="../images/upArrow2.png" class="upMovementArrow" id="upArrowWalk")
+              img(src="../images/downArrow2.png" class="downMovementArrow" id="downArrowWalk")
+
+            #mechRun Run: &nbsp;&nbsp;
+              p(style="display: inline-block; font-weight: normal;") 
+              input(type="text" style="margin-left: 4px;" class="movementValues" value=value=fullMechData.mechengine_mechRun || '8' readonly="")
+
+            #mechJump Jump: &nbsp;
+              p(style="display: inline-block; font-weight: normal;") 
+              input(type="text" class="movementValues" value=value=fullMechData.mechengine_mechJump || '0' readonly="")
+              img(src="../images/upArrow2.png" class="upMovementArrow" id="upArrowJump")
+              img(src="../images/downArrow2.png" class="downMovementArrow" id="downArrowJump")
+
+          h4 Tonnage
+          .detailsTextDisplay#mechTonnage
+            p(style="display: inline-block;") Tonnage:
+            select(class="dropDownSelectors" id="mechTonnageDropDown" name="mechTonnageDropDown" onchange="changeMechInternalTonnage($(this).val());")
+              // Loop to create tonnage options
+              each val in [20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100]
+                option(value=val selected=(val == fullMechData.mechs_maxTonnage)) #{val}
+            p(style="font-weight: normal; margin-top: -4px;") 
+              strong Mech Type: BattleMech
+            p#totalWeight(style="font-weight: normal; margin-top: -6px; color: white;") 
+              strong Current Tonnage: 0/#{fullMechData.mechs_maxTonnage || '20'}
+
+          h4 Heat Sinks
+          .detailsTextDisplay#heatSinkContainer
+            p(style="display: inline-block;") Heat Sink Type: &nbsp;
+            select(class="dropDownSelectors" id="heatSinkTypeDropDown" name="heatSinkTypeDropDown" onchange="updateHeatSinksJSON(true)")
+              option(selected=(fullMechData.mechinternals_heatSinkType == 'Singles')) Singles
+              option(selected=(fullMechData.mechinternals_heatSinkType == 'Doubles')) Doubles
+            p(style="display: inline-block;") Heat Sinks Total: &nbsp;
+            select(class="dropDownSelectors" id="heatSinkNumDropDown" name="heatSinkNumDropDown" onchange="updateHeatSinksJSON('changeNum', this.value)")
+              // Loop to create heat sink options
+              each val in Array.from({ length: 56 }, (_, i) => i + 10)
+                option(value=val selected=(val == fullMechData.mechinternals_heatSinksNum)) #{val}
+            p(style="display: inline-block;") Heat Dissipation: &nbsp;
+            p#heatDissipation(style="display: inline-block; font-weight: normal;")
+              - var heatSinkType = fullMechData.mechinternals_heatSinkType || 'Singles';
+              - var heatSinksNum = fullMechData.mechinternals_heatSinksNum || 10;
+              - var heatDissipation = heatSinkType === 'Doubles' ? heatSinksNum * 2 : heatSinksNum;
+              = heatDissipation
+
+        .detailsTextDisplay#mechDetails
+          img(src="../images/customMechLogo.jpg" alt="Custom Mech")
+
+        #internalsCriticals
+          h4(style="margin-left: -7px;") Internals/Criticals
+          #internalsCriticalsContainer
+            table#internalsTable
+              tbody
+                tr(style="padding-left: -20px;")
+                  td(style="border: none;")
+                  td
+                    strong Tons
+                  td
+                    strong Crits
+                tr
+                  td
+                    strong Internals
+                  td#internalsTonnage 0.0
+                  td#InternalsCriticalsTableData 0
+                tr
+                  td
+                    strong Engine
+                  td#engineTonnage 0.0
+                  td#engineCriticals 0
+                tr
+                  td
+                    strong Gyro
+                  td#gyroTonnage 0.0
+                  td#gyroCriticals 0
+                tr
+                  td
+                    strong Cockpit
+                  td#cockpitTonnage 0.0
+                  td#cockpitCriticals 0
+                tr
+                  td
+                    strong Heat Sinks
+                  td#heatSinksTonnage 0.0
+                  td#heatSinksCriticals 0
+                tr
+                  td
+                    strong Enhancements
+                  td#enhancementsTonnage 0.0
+                  td#enhancementsCriticals 0
+                tr
+                  td
+                    strong JumpJets
+                  td#jumpJetsTonnage 0.0
+                  td#jumpJetsCriticals 0
 
     div(id="mechArmorSections")
       div(id="mechArmorHead")
