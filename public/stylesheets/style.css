@@ -15,7 +15,8 @@
   right: 0px;
   left: max(15%, 200px);
   display: inline-block;
-  min-height: 700px;
+  min-height: 670px;
+  padding: 15px;
 }
 
 #mechArmorDiagram {
@@ -360,6 +361,16 @@ h1 {
   width: 300px;
   height: 80%;
   background-color: black;
+}
+
+#mechHeader {
+  display: inline-block;
+  vertical-align: top;
+  width: 315px;
+  margin-right: 5px;
+  padding: 5px;
+  background: linear-gradient(to right, #79796b, #adad99);
+  height: 650px;
 }
 
 #mechDetails {
