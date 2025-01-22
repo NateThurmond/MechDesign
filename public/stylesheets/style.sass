@@ -604,3 +604,61 @@ h1
   font-size: 20px
   margin-top: 0px
   margin-bottom: 8px
+
+=chevron($direction: up, $size: 1em, $outer-thickness: 2px, $outer-color: black, $inner-thickness: 1px, $inner-color: gray, $radius: 0)
+  position: relative
+  display: inline-block
+  width: $size
+  height: $size
+  box-sizing: border-box
+
+  // Draw top + left edges for the outer color
+  border-top: $outer-thickness solid $outer-color
+  border-left: $outer-thickness solid $outer-color
+
+  // Round that corner where the two borders meet
+  border-top-left-radius: $radius
+
+  // Rotate the whole thing into a caret
+  @if $direction == up
+    transform: rotate(45deg)
+    transform-origin: top left
+  @else if $direction == down
+    transform: rotate(-135deg)
+    transform-origin: top left
+  @else if $direction == left
+    transform: rotate(135deg)
+    transform-origin: top left
+  @else if $direction == right
+    transform: rotate(-45deg)
+    transform-origin: top left
+
+  // Inner "L" outer border via pseudo-element
+  &::before
+    content: ""
+    position: absolute
+    box-sizing: border-box
+    top: calc($inner-thickness - 1px)
+    left: calc($inner-thickness - 1px)
+    width: calc($size - $outer-thickness - $inner-thickness + 1px)
+    height: calc($size - $outer-thickness - $inner-thickness + 1px)
+    border-top: $outer-thickness solid $outer-color
+    border-left: $outer-thickness solid $outer-color
+
+  // Inner "L" inner border via pseudo-element
+  &::after
+    content: ""
+    position: absolute
+    box-sizing: border-box
+    top: 0
+    left: 0
+    width: calc($size - $outer-thickness + 0.5px)
+    height: calc($size - $outer-thickness + 0.5px)
+    border-top: $inner-thickness solid $inner-color
+    border-left: $inner-thickness solid $inner-color
+
+.armorIncChevron
+  +chevron(up, 0.6em, 2px, darkred, 3px, orange, 2px)
+
+.armorDecChevron
+  +chevron(down, 0.6em, 2px, darkred, 3px, orange, 2px)
