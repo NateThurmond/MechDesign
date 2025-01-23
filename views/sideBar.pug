@@ -20,6 +20,52 @@ block sideBar
     p.selector(id="armorSelector") Armor
     div.popoutClass.popoutTab2 Increase External Armor
       hr.dividerBar
+      span#torsoLeftInt.internalStructurePoints
+      div.armorIncChevron(id="LeftTorsoInc")
+      div.armorDecChevron(id="LeftTorsoDec")
+
+      span#torsoRightInt.internalStructurePoints
+      div.armorIncChevron(id="RightTorsoInc")
+      div.armorDecChevron(id="RightTorsoDec")
+
+      div.armorIncChevron(id="LeftRearTorsoInc")
+      div.armorDecChevron(id="LeftRearTorsoDec")
+
+      div.armorIncChevron(id="RightRearTorsoInc")
+      div.armorDecChevron(id="RightRearTorsoDec")
+
+      div.armorIncChevron(id="centerRearTorsoInc")
+      div.armorDecChevron(id="centerRearTorsoDec")
+
+      span#legRightInt.internalStructurePoints
+      div.armorIncChevron(id="RightLegInc")
+      div.armorDecChevron(id="RightLegDec")
+
+      span#legLeftInt.internalStructurePoints
+      div.armorIncChevron(id="LeftLegInc")
+      div.armorDecChevron(id="LeftLegDec")
+
+      span#centerArmorInt.internalStructurePoints
+      div.armorIncChevron(id="centerTorsoInc")
+      div.armorDecChevron(id="centerTorsoDec")
+
+      span#headArmorInt.internalStructurePoints
+      div.armorIncChevron(id="headInc")
+      div.armorDecChevron(id="headDec")
+
+      span#armLeftInt.internalStructurePoints
+      div.armorIncChevron(id="LeftArmInc")
+      div.armorDecChevron(id="LeftArmDec")
+
+      span#armRightInt.internalStructurePoints
+      div.armorIncChevron(id="RightArmInc")
+      div.armorDecChevron(id="RightArmDec")
+
+      h4(style="color: black; font-size: 12px; margin-top: -35px")
+        input#mirrorArmorBox(type="checkbox", name="mirrorArmorBox", checked=true style="position: relative; top: 2px;")
+        | Link armor locations
+      h4(style="color: black; font-size: 12px; margin-top: -15px")
+        p#totalWeightArmorPage(style="font-weight: normal; margin-top: 9px;")
 
     p.selector(id="weaponSelector") Weapons/Criticals
     div.popoutClass.popoutTab3
