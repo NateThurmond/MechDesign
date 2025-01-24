@@ -686,6 +686,7 @@ h1 {
   width: 0.6em;
   height: 0.6em;
   box-sizing: border-box;
+  cursor: pointer;
   border-top: 2px solid darkred;
   border-left: 2px solid darkred;
   border-top-left-radius: 2px;
@@ -721,6 +722,7 @@ h1 {
   width: 0.6em;
   height: 0.6em;
   box-sizing: border-box;
+  cursor: pointer;
   border-top: 2px solid darkred;
   border-left: 2px solid darkred;
   border-top-left-radius: 2px;
@@ -756,6 +758,7 @@ h1 {
   position: absolute;
   text-align: center;
   min-width: 25px;
+  user-select: none;
 }
 
 #torsoLeftInt {
