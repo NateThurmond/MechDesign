@@ -143,11 +143,32 @@ block mainContent
                   td#jumpJetsTonnage 0.0
                   td#jumpJetsCriticals 0
 
-    div(id="mechArmorSections")
-      div(id="mechArmorHead")
+    #mechArmor
+      #arm
+        .armorDisplayLayout#leftArmArmor
+        .armorDisplayLayout#rightArmArmor
 
-    div(id="mechArmorDiagram")
-  
+      #head
+        .armorDisplayLayout#mechHeadArmor
+
+      #center
+        .armorDisplayLayout#centerArmor
+        .armorDisplayLayout#centerRearArmor
+
+      #torso
+        .armorDisplayLayout#leftTorsoArmorTop
+        .armorDisplayLayout#leftTorsoArmorMiddle
+        .armorDisplayLayout#leftTorsoArmorBottom
+        .armorDisplayLayout#rightTorsoArmorTop
+        .armorDisplayLayout#rightTorsoArmorMiddle
+        .armorDisplayLayout#rightTorsoArmorBottom
+        .armorDisplayLayout#leftRearTorsoArmor
+        .armorDisplayLayout#rightRearTorsoArmor
+
+      #leg
+        .armorDisplayLayout#leftLegArmor
+        .armorDisplayLayout#rightLegArmor
+
 block register
   include register.pug
 

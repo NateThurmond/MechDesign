@@ -193,6 +193,13 @@ h1
   font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif
   color: black
 
+.dividerBar
+  height: 1px
+  width: 90%
+  color: black
+  background-color:#808080
+  margin-top: 0px
+
 .popoutClass
   display: none
   position: absolute
@@ -208,6 +215,7 @@ h1
   transition: top 0.5s ease-in-out
   margin: 0
   top: -185px // Initially set high so it can come in off page
+  font-family: arial, sans-serif
 
 .popoutTab
   width: 700px
@@ -507,39 +515,6 @@ h1
   display: block
   margin: 0 auto
   margin-top: 8px
-
-#mechArmorSections
-  display: inline-block
-  position: absolute
-  width: calc(.7 * (85% - 300px))
-  height: 79%
-  background-image: url('/images/emptymech.jpg')
-  background-position: center center
-  background-repeat: no-repeat
-  background-color: lightgrey
-  left: 335px
-  border: 4px solid #d65c33
-  height: 650px
-  width: 550px
-  #mechArmorHead
-    position: static
-    text-align: center
-    width: 14%
-    height: 11%
-    background-color: rgba(255, 0, 0, 0.4)
-    margin-left: auto
-    margin-right: auto
-    margin-top: 10%
-  
-#mechArmorDiagram
-  display: inline-block
-  @extend %noBorder
-  width: calc(85% - 300px)
-  height: 79%
-  background-image: $design_mechview_bg
-  background-repeat: no-repeat
-  background-position: 300px left
-  background-size: 70% 100%
   
 .showHide
   display: inline-block !important
@@ -629,3 +604,193 @@ h1
   font-size: 20px
   margin-top: 0px
   margin-bottom: 8px
+
+=chevron($direction: up, $size: 1em, $outer-thickness: 2px, $outer-color: black, $inner-thickness: 1px, $inner-color: gray, $radius: 0)
+  position: relative
+  display: inline-block
+  width: $size
+  height: $size
+  box-sizing: border-box
+  cursor: pointer
+
+  // Draw top + left edges for the outer color
+  border-top: $outer-thickness solid $outer-color
+  border-left: $outer-thickness solid $outer-color
+
+  // Round that corner where the two borders meet
+  border-top-left-radius: $radius
+
+  // Rotate the whole thing into a caret
+  @if $direction == up
+    transform: rotate(45deg)
+    transform-origin: top left
+  @else if $direction == down
+    transform: rotate(-135deg)
+    transform-origin: top left
+  @else if $direction == left
+    transform: rotate(135deg)
+    transform-origin: top left
+  @else if $direction == right
+    transform: rotate(-45deg)
+    transform-origin: top left
+
+  // Inner "L" outer border via pseudo-element
+  &::before
+    content: ""
+    position: absolute
+    box-sizing: border-box
+    top: calc($inner-thickness - 1px)
+    left: calc($inner-thickness - 1px)
+    width: calc($size - $outer-thickness - $inner-thickness + 1px)
+    height: calc($size - $outer-thickness - $inner-thickness + 1px)
+    border-top: $outer-thickness solid $outer-color
+    border-left: $outer-thickness solid $outer-color
+
+  // Inner "L" inner border via pseudo-element
+  &::after
+    content: ""
+    position: absolute
+    box-sizing: border-box
+    top: 0
+    left: 0
+    width: calc($size - $outer-thickness + 0.5px)
+    height: calc($size - $outer-thickness + 0.5px)
+    border-top: $inner-thickness solid $inner-color
+    border-left: $inner-thickness solid $inner-color
+
+.armorIncChevron
+  +chevron(up, 0.6em, 2px, darkred, 3px, orange, 2px)
+
+.armorDecChevron
+  +chevron(down, 0.6em, 2px, darkred, 3px, orange, 2px)
+
+.internalStructurePoints
+  color: cadetblue
+  font-size: 16px
+  position: absolute
+  text-align: center
+  min-width: 25px
+  user-select: none
+
+#torsoLeftInt
+  margin-top: 92px
+  margin-left: 98px
+
+#torsoRightInt
+  margin-top: 92px
+  margin-left: 172px
+
+#legRightInt
+  margin-top: 285px
+  margin-left: 58px
+
+#legLeftInt
+  margin-top: 284px
+  margin-left: -90px
+
+#centerArmorInt
+  margin-top: 127px
+  margin-left: -61px
+
+#headArmorInt
+  margin-top: 86px
+  margin-left: -91px
+
+#armLeftInt
+  margin-top: 93px
+  margin-left: -225px
+
+#armRightInt
+  margin-top: 93px
+  margin-left: -45px
+
+.armorDecChevron
+  position: relative
+
+#LeftTorsoInc
+  top: 116px
+  left: 122px
+
+#LeftTorsoDec
+  top: 146px
+  left: 107px
+
+#RightTorsoInc
+  top: 116px
+  left: 174px
+
+#RightTorsoDec
+  top: 146px
+  left: 159px
+
+#LeftRearTorsoInc
+  top: 440px
+  left: 20px
+
+#LeftRearTorsoDec
+  top: 470px
+  left: 5px
+
+#RightRearTorsoInc
+  top: 440px
+  left: 155px
+
+#RightRearTorsoDec
+  top: 470px
+  left: 140px
+
+#centerRearTorsoInc
+  top: 430px
+  left: 43px
+
+#centerRearTorsoDec
+  top: 460px
+  left: 28px
+
+#RightLegInc
+  top: 320px
+  left: 83px
+
+#RightLegDec
+  top: 350px
+  left: 68px
+
+#LeftLegInc
+  top: 320px
+  left: -88px
+
+#LeftLegDec
+  top: 350px
+  left: -103px
+
+#centerTorsoInc
+  top: 175px
+  left: -47px
+
+#centerTorsoDec
+  top: 205px
+  left: -62px
+
+#headInc
+  top: 33px
+  left: -78px
+
+#headDec
+  top: 63px
+  left: -93px
+
+#LeftArmInc
+  top: 116px
+  left: -212px
+
+#LeftArmDec
+  top: 146px
+  left: -227px
+
+#RightArmInc
+  top: 116px
+  left: -31px
+
+#RightArmDec
+  top: 146px
+  left: -46px
