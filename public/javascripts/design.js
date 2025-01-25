@@ -99,7 +99,7 @@ $(document).ready(function () {
         });
     });
 
-    $(document).on("click", ".armorIncChevron, .armorDecChevron", function () {
+    $(".armorIncChevron, .armorDecChevron").on("click", function () {
         switch ($(this).attr("id")) {
             case "LeftTorsoInc":
                 changeMechStats("torsoLeftArmor", "increase", "torso");
@@ -175,7 +175,12 @@ $(document).ready(function () {
     // INITIAL PAGE LOAD, data has already been fetch from express/pug template as fullMechData
 
     // Build armor plots for mech
+    // updateMechMeta(fullMechData);
     displayArmorSection("mechArmor", fullMechData);
+    // updateHeatSinksJSON();
+    // updateEngine();
+    changeMechInternalTonnage(fullMechData.mechs_maxTonnage);
+    // displayAllCrits();
 });
 
 function saveMech(saveString, mechJSON) {
@@ -594,4 +599,105 @@ function calculateArmorWeight(armorPoints, techBase = "Clan", armorType = "Ferro
 
     // Return the weight rounded up to the nearest 0.5 tons (BattleTech rounding)
     return Math.ceil(armorWeight * 2) / 2;
+}
+
+function changeMechInternalTonnage(mechWeight) {
+    fullMechData.mechs_maxTonnage = mechWeight;
+
+    let walkSpeed = parseInt($("#mechWalk").find(".movementValues").val(), 10);
+
+    // Calculate the engine rating
+    const engineRating = mechWeight * walkSpeed;
+
+    // Engine Weight and Criticals
+    let engineWeight, engineCrits;
+    if (fullMechData.mechengine_engineName === "Fusion Engine") {
+        engineWeight = getFusionEngineWeight(engineRating);
+        engineCrits = 6; // 2 in each torso section
+    } else if (fullMechData.mechengine_engineName === "XL Engine") {
+        engineWeight = getXLEngineWeight(engineRating);
+        engineCrits = 12; // 4 in each torso section
+    }
+
+    // Gyro Weight
+    let gyroWeight = getGyroWeight(engineRating);
+    const gyroCrits = 4; // Standard gyro
+
+    // Cockpit Weight
+    const cockpitWeight = 3; // Fixed for all mechs
+    const cockpitCrits = 1;
+
+    // Heat Sink Weight
+    const extraHeatSinkWeight = Math.max(fullMechData.mechinternals_heatSinksNum - 10, 0);
+    let heatSinkCrits = Math.max(0, parseFloat(fullMechData.mechinternals_heatSinksNum, 10) - 10);
+    heatSinkCrits = fullMechData.mechs_techBase === "Clan" ? heatSinkCrits : heatSinkCrits * 3;
+
+    // Optional Jump Jets (if applicable) - Technically not accurate to just set 1 ton for jump-jets but works for most mechs
+    const jumpJetWeight = parseFloat(parseInt($("#mechJump").find(".movementValues").val(), 10), 10);
+
+    const structureType = fullMechData.mechinternals_internalStructureType || "Standard";
+    const internalStructure = Math.round(
+        calculateInternalStructureWeight(mechWeight, structureType, fullMechData.mechs_techBase)
+    );
+
+    // Total Internal Tonnage (including all components)
+    const totalInternalTonnage =
+        internalStructure + engineWeight + gyroWeight + cockpitWeight + extraHeatSinkWeight + jumpJetWeight;
+
+    // Update mech data
+    fullMechData.mechinternals_internalStructureTonnage = internalStructure.toFixed(1);
+    fullMechData.mechinternals_engineTonnage = engineWeight.toFixed(1);
+    fullMechData.mechinternals_gyroTonnage = gyroWeight.toFixed(1);
+    fullMechData.mechinternals_cockpitTonnage = cockpitWeight.toFixed(1);
+    fullMechData.mechinternals_heatSinksTonnage = extraHeatSinkWeight.toFixed(1);
+    fullMechData.mechinternals_jumpJetsTonnage = jumpJetWeight.toFixed(1);
+
+    // Set Total Internal Tonnage
+    fullMechData.mechinternals_totalInternalTonnage = totalInternalTonnage.toFixed(1);
+
+    console.log({
+        mechWeight,
+        engineName: fullMechData.mechengine_engineName,
+        heatSinksNum: fullMechData.mechinternals_heatSinksNum,
+        internalStructure: internalStructure.toFixed(1),
+        engineWeight: engineWeight.toFixed(1),
+        gyroWeight: gyroWeight.toFixed(1),
+        cockpitWeight: cockpitWeight.toFixed(1),
+        extraHeatSinkWeight: extraHeatSinkWeight.toFixed(1),
+        jumpJetWeight: jumpJetWeight.toFixed(1),
+        totalInternalTonnage: totalInternalTonnage.toFixed(1),
+    });
+
+    // updateEngineTonnageJSON();
+    updateTonnage();
+    // clearSlotsOnWeightChange();
+    // displayAllCrits();
+}
+
+function getFusionEngineWeight(engineRating) {
+    return standardEngineWeights[Math.min(engineRating, 400)] || 0;
+}
+
+function getXLEngineWeight(engineRating) {
+    return xlEngineWeights[Math.min(engineRating, 400)] || 0;
+}
+
+function getGyroWeight(engineRating) {
+    return gyroWeights[engineRating] || 0;
+}
+
+function calculateInternalStructureWeight(mechWeight, structureType = "Standard", techBase = "Clan") {
+    // Internal structure weight modifiers
+    const internalStructureModifiers = {
+        Standard: 1, // 10% of 'Mech weight
+        "Endo Steel": 0.5, // 50% of the standard weight
+    };
+
+    if (!internalStructureModifiers[structureType]) {
+        throw new Error("Invalid internal structure type");
+    }
+
+    const baseWeight = mechWeight * 0.1; // 10% of 'Mech weight
+    const modifier = internalStructureModifiers[structureType];
+    return baseWeight * modifier;
 }
