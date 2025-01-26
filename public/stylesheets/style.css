@@ -915,4 +915,26 @@ h1 {
   left: -46px;
 }
 
+#weaponInfo {
+  font-weight: bold;
+  background-color: #3E4146;
+  margin-left: 2.5%;
+  margin-bottom: 10px;
+  font-family: Verdana, Geneva, Arial, sans-serif;
+  font-size: 10px;
+  color: white;
+  width: 95%;
+}
+
+#weaponInfo tr {
+  height: 27px;
+}
+
+#weaponInfo td {
+  border-bottom: 1px solid lightgrey;
+  border-collapse: collapse;
+  text-align: center;
+  box-shadow: 0 0 black, 0 1px black, 1px 0 black, 0 0 black;
+}
+
 /*# sourceMappingURL=style.css.map */
