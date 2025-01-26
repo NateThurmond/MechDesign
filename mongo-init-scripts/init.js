@@ -360,7 +360,7 @@ const mechResults = db.mechs.insertMany([
         mecharmRight_slot9: "",
         mechengine_activeEngine: 1,
         mechengine_engineName: "Fusion Engine",
-        mechengine_engineRating: 3,
+        mechengine_engineRating: 2,
         mechengine_id: 11,
         mechengine_mechID: 18,
         mechengine_mechJump: 0,

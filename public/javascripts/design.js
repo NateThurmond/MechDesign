@@ -99,6 +99,32 @@ $(document).ready(function () {
         });
     });
 
+    $(document).on("click", ".upMovementArrow", function () {
+        $(this)
+            .prev()
+            .val(parseInt($(this).prev().val(), 10) + 1);
+
+        fullMechData.mechengine_mechWalk = $("#mechWalk").find(".movementValues").val();
+        fullMechData.mechengine_mechRun = Math.ceil(fullMechData.mechengine_mechWalk * 1.5);
+        $("#mechRun").find(".movementValues").val(fullMechData.mechengine_mechRun);
+        fullMechData.mechengine_mechJump = $("#mechJump").find(".movementValues").val();
+        updateEngine(false);
+    });
+
+    $(document).on("click", ".downMovementArrow", function () {
+        let walkJumpMin = $(this).attr("id") === "downArrowWalk" ? 1 : 0;
+        let prevNum = parseInt($(this).prev().prev().val(), 10);
+        prevNum = prevNum - 1;
+        prevNum = Math.max(prevNum, walkJumpMin);
+        $(this).prev().prev().val(prevNum);
+
+        fullMechData.mechengine_mechWalk = $("#mechWalk").find(".movementValues").val();
+        fullMechData.mechengine_mechRun = Math.ceil(fullMechData.mechengine_mechWalk * 1.5);
+        $("#mechRun").find(".movementValues").val(fullMechData.mechengine_mechRun);
+        fullMechData.mechengine_mechJump = $("#mechJump").find(".movementValues").val();
+        updateEngine(false);
+    });
+
     $(".armorIncChevron, .armorDecChevron").on("click", function () {
         switch ($(this).attr("id")) {
             case "LeftTorsoInc":
@@ -175,10 +201,7 @@ $(document).ready(function () {
     // INITIAL PAGE LOAD, data has already been fetch from express/pug template as fullMechData
 
     // Build armor plots for mech
-    // updateMechMeta(fullMechData);
     displayArmorSection("mechArmor", fullMechData);
-    // updateHeatSinksJSON();
-    // updateEngine();
     changeMechInternalTonnage(fullMechData.mechs_maxTonnage);
     // displayAllCrits();
 });
@@ -242,8 +265,6 @@ function hidePopout() {
 
 // FUNCTION TO DISPLAY ARMOR VALUES (External armor that is)
 function displayArmorSection(displayLocale, mechData) {
-    console.log(mechData);
-
     const mechArmorContainer = document.getElementById("mechArmor");
     $(mechArmorContainer).empty();
 
@@ -668,10 +689,48 @@ function changeMechInternalTonnage(mechWeight) {
         totalInternalTonnage: totalInternalTonnage.toFixed(1),
     });
 
-    // updateEngineTonnageJSON();
+    updateEngineTonnageJSON();
     updateTonnage();
     // clearSlotsOnWeightChange();
     // displayAllCrits();
+}
+
+// Method to update the heat sink/type/dissipation data
+function updateHeatSinksJSON(swapHeatSyncType = false, newHeatSyncNum = -1) {
+    let changeMade = false;
+    if (swapHeatSyncType === true) {
+        fullMechData.mechinternals_heatSinkType =
+            fullMechData.mechinternals_heatSinkType === "Singles" ? "Doubles" : "Singles";
+        changeMade = true;
+    }
+    if (newHeatSyncNum !== -1) {
+        fullMechData.mechinternals_heatSinksNum = newHeatSyncNum;
+        changeMade = true;
+    }
+
+    if (changeMade === false) return;
+
+    $("#heatSinkTypeDropDown").val(fullMechData.mechinternals_heatSinkType);
+    $("#heatSinkNumDropDown").val(fullMechData.mechinternals_heatSinksNum);
+    let heatSinkMulti = $("#heatSinkTypeDropDown").val() === "Singles" ? 1 : 2;
+    $("#heatDissipation").html(heatSinkMulti * parseInt($("#heatSinkNumDropDown").val(), 10));
+
+    if (changeMade === true) {
+        changeMechInternalTonnage(fullMechData.mechs_maxTonnage);
+    }
+}
+
+async function updateEngine(updatedEngineChange = false) {
+    if (updatedEngineChange !== false && typeof updatedEngineChange === "string") {
+        fullMechData.mechengine_engineName = updatedEngineChange;
+        fullMechData.mechengine_engineRating = updatedEngineChange === "Fusion Engine" ? 3 : 2;
+        $("#mechWalk").find(".movementValues").val(fullMechData.mechengine_mechWalk);
+        $("#mechRun").find(".movementValues").val(fullMechData.mechengine_mechRun);
+        $("#mechJump").find(".movementValues").val(fullMechData.mechengine_mechJump);
+    }
+
+    // Update the DOM
+    changeMechInternalTonnage(fullMechData.mechs_maxTonnage);
 }
 
 function getFusionEngineWeight(engineRating) {
@@ -700,4 +759,28 @@ function calculateInternalStructureWeight(mechWeight, structureType = "Standard"
     const baseWeight = mechWeight * 0.1; // 10% of 'Mech weight
     const modifier = internalStructureModifiers[structureType];
     return baseWeight * modifier;
+}
+
+function updateEngineTonnageJSON() {
+    $("#mechTonnageDropDown").val(fullMechData.mechs_maxTonnage);
+    document.getElementById("mechEngineRating").innerHTML = fullMechData.mechengine_engineRating;
+
+    // Tonage
+    document.getElementById("internalsTonnage").innerHTML = fullMechData.mechinternals_internalStructureTonnage;
+    document.getElementById("engineTonnage").innerHTML = fullMechData.mechinternals_engineTonnage;
+    document.getElementById("gyroTonnage").innerHTML = fullMechData.mechinternals_gyroTonnage;
+    document.getElementById("cockpitTonnage").innerHTML = fullMechData.mechinternals_cockpitTonnage;
+    document.getElementById("heatSinksTonnage").innerHTML = fullMechData.mechinternals_heatSinksTonnage;
+    document.getElementById("enhancementsTonnage").innerHTML = fullMechData.mechinternals_enhancementsTonnage;
+    document.getElementById("jumpJetsTonnage").innerHTML = fullMechData.mechinternals_jumpJetsTonnage;
+
+    // Crits
+    document.getElementById("InternalsCriticalsTableData").innerHTML =
+        fullMechData.mechinternals_internalStructureCriticals;
+    document.getElementById("engineCriticals").innerHTML = fullMechData.mechinternals_engineCriticals;
+    document.getElementById("gyroCriticals").innerHTML = fullMechData.mechinternals_gyroCriticals;
+    document.getElementById("cockpitCriticals").innerHTML = fullMechData.mechinternals_cockpitCriticals;
+    document.getElementById("heatSinksCriticals").innerHTML = fullMechData.mechinternals_heatSinksCriticals;
+    document.getElementById("enhancementsCriticals").innerHTML = fullMechData.mechinternals_enhancementsCriticals;
+    document.getElementById("jumpJetsCriticals").innerHTML = fullMechData.mechinternals_jumpJetsCriticals;
 }
