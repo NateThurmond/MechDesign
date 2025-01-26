@@ -15,7 +15,7 @@ router.get("/", function (req, res) {
                 welcomeSec: "Welcome, " + req.cookies.userName,
                 mechs: docs,
                 customMechs: documents,
-                fullMechData: {},
+                fullMechData: docs[0],
             });
         });
     });
