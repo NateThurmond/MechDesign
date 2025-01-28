@@ -4,10 +4,11 @@ var favicon = require("serve-favicon");
 var logger = require("morgan");
 var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
-var MechMod = require("./mechMod-mongodb").ArticleProvider;
-var Quotes = require("./quote-mongodb").ArticleProvider;
-var Members = require("./member-mongodb").ArticleProvider;
-var Crypto = require("./crypto").ArticleProvider;
+require("./mechMod-mongodb").ArticleProvider;
+require("./quote-mongodb").ArticleProvider;
+require("./member-mongodb").ArticleProvider;
+require("./weapons-mongodb").ArticleProvider;
+require("./crypto").ArticleProvider;
 
 var app = express();
 
@@ -26,15 +27,18 @@ app.use(express.static(path.join(__dirname, "public")));
 mechMod = new mechMod();
 quotes = new quotes();
 members = new members();
+weapons = new weapons();
 cryptoHash = new cryptoHash();
 
 var indexRoutes = require("./routes/index");
 var designRoutes = require("./routes/design");
 var registerRoutes = require("./routes/register");
+var weaponsRoutes = require("./routes/weapons");
 
 app.use("/", indexRoutes);
 app.use("/design", designRoutes);
 app.use("/register", registerRoutes);
+app.use("/weapons", weaponsRoutes);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
