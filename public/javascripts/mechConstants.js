@@ -381,3 +381,7 @@ const armorCharts = {
         centerTorsoMax: 116,
     },
 };
+
+// Fetched from DB - two different ways to view the same data
+var dataByWeaponName = {};
+var weaponArray = [];

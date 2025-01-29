@@ -29,6 +29,14 @@ $(document).ready(function () {
         });
     });
 
+    // Get mech weapons from mongo
+    $.getJSON("/weapons", function (res) {
+        weaponArray = res[1];
+        res.forEach((weaponEnt) => {
+            dataByWeaponName[weaponEnt.weaponName] = weaponEnt;
+        });
+    });
+
     // Only show button to view custom mechs if user is logged in
     if (getCookie("userName") == null || getCookie("userName") == "") {
         $("#link_1").css("display", "none");
