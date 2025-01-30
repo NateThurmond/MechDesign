@@ -71,6 +71,48 @@ $(document).ready(function () {
         }
     });
 
+    $(document).on("click", ".weaponChildLI", function () {
+        var weaponName = $(this).attr("name");
+        let weaponDetails = dataByWeaponName[weaponName];
+
+        // DELETE THE PREVIOUS DATA
+        var myNode = document.getElementById("weaponDetails");
+        while (myNode.firstChild) {
+            myNode.removeChild(myNode.firstChild);
+        }
+
+        for (var key in weaponDetails) {
+            if (key === "_id") continue;
+            var TD = document.createElement("td");
+            TD.innerHTML = weaponDetails[key];
+            document.getElementById("weaponDetails").appendChild(TD);
+        }
+    });
+
+    $(".weaponAccordionLI").click(function () {
+        if (!$(this).children().is(":visible")) {
+            $(this).parent().children().children().slideUp();
+            $(this).children().slideDown();
+        }
+    });
+
+    $(".weaponAccordionLI").hover(
+        function () {
+            $(this).addClass("highlighted");
+        },
+        function () {
+            $(this).removeClass("highlighted");
+        }
+    );
+
+    $(document).on("mouseenter", ".weaponChildLI", function () {
+        $(this).addClass("weaponHighlight");
+    });
+
+    $(document).on("mouseleave", ".weaponChildLI", function () {
+        $(this).removeClass("weaponHighlight");
+    });
+
     $(".selector").hover(
         function () {
             $(this).addClass("highlighted2");

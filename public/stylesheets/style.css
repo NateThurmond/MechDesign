@@ -975,4 +975,21 @@ h1 {
   list-style-type: none;
 }
 
+.highlighted {
+  cursor: pointer;
+  color: #5D5D50;
+}
+
+.highlighted2 {
+  background-color: #F9EDBE;
+  box-shadow: 6px 6px 5px black;
+  outline-color: blue;
+  cursor: pointer;
+}
+
+.weaponHighlight {
+  background: #003545;
+  border-left: 5px solid lightgreen;
+}
+
 /*# sourceMappingURL=style.css.map */
