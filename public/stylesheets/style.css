@@ -937,4 +937,42 @@ h1 {
   box-shadow: 0 0 black, 0 1px black, 1px 0 black, 0 0 black;
 }
 
+#weaponAccordion {
+  display: inline-block;
+  float: left;
+  background-color: grey;
+  width: 204px;
+  height: 365px;
+  margin-left: 10px;
+}
+
+.weaponAccordionTabs {
+  padding-left: 0;
+  cursor: pointer;
+  margin: 15px auto 0 auto;
+  color: white;
+  box-shadow: 0 5px 15px 1px rgba(0, 0, 0, 0.6), 0 0 200px 1px rgba(255, 255, 255, 0.5);
+}
+
+.weaponAccordionLI {
+  list-style-type: none;
+  font-size: 19px;
+  text-align: left;
+  text-indent: 10px;
+  background-color: orange;
+  background: linear-gradient(#D65C33, #B84A00);
+}
+
+#weaponChild {
+  display: none;
+  padding-left: 0;
+  background-color: #3E4146;
+  font-size: 14px;
+}
+
+.weaponChildLI {
+  color: white;
+  list-style-type: none;
+}
+
 /*# sourceMappingURL=style.css.map */
