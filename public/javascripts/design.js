@@ -31,10 +31,13 @@ $(document).ready(function () {
 
     // Get mech weapons from mongo
     $.getJSON("/weapons", function (res) {
-        weaponArray = res[1];
+        weaponArray = res;
         res.forEach((weaponEnt) => {
             dataByWeaponName[weaponEnt.weaponName] = weaponEnt;
         });
+
+        // At this point, we can build out weapons selectors now that we have the data we need
+        buildWeaponLis();
     });
 
     // Only show button to view custom mechs if user is logged in
@@ -791,4 +794,32 @@ function updateEngineTonnageJSON() {
     document.getElementById("heatSinksCriticals").innerHTML = fullMechData.mechinternals_heatSinksCriticals;
     document.getElementById("enhancementsCriticals").innerHTML = fullMechData.mechinternals_enhancementsCriticals;
     document.getElementById("jumpJetsCriticals").innerHTML = fullMechData.mechinternals_jumpJetsCriticals;
+}
+
+function buildWeaponLis() {
+    weaponArray.forEach((weaponElem) => {
+        if (weaponElem.techBase !== fullMechData.mechs_techBase) return;
+        if ($(`.wc_` + weaponElem.weaponType).length === 0) return;
+        let wLi = `<li class="weaponChildLI" name="${weaponElem.weaponName}">${weaponElem.weaponName}</li>`;
+        $(`.wc_` + weaponElem.weaponType).append(wLi);
+    });
+
+    $(".weaponChildLI").draggable({
+        revert: true,
+        revertDuration: 0,
+        cursor: "move",
+        start: function (event, ui) {
+            $(this).toggleClass("draggingWeapon");
+            $(this).css("width", "80px");
+
+            mousePos = event.pageX - 224;
+            $(this).css("margin-left", mousePos);
+        },
+        stop: function (event, ui) {
+            $(this).toggleClass("draggingWeapon");
+            $(this).css("margin-left", "0px");
+            $(this).css("width", "auto");
+            $(this).css("height", "auto");
+        },
+    });
 }
