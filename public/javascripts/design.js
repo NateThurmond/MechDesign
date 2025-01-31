@@ -256,7 +256,6 @@ $(document).ready(function () {
     // Build armor plots for mech
     displayArmorSection("mechArmor", fullMechData);
     changeMechInternalTonnage(fullMechData.mechs_maxTonnage);
-    // displayAllCrits();
 });
 
 function saveMech(saveString, mechJSON) {
@@ -744,8 +743,8 @@ function changeMechInternalTonnage(mechWeight) {
 
     updateEngineTonnageJSON();
     updateTonnage();
-    // clearSlotsOnWeightChange();
-    // displayAllCrits();
+    clearSlotsOnWeightChange();
+    displayAllCrits();
 }
 
 // Method to update the heat sink/type/dissipation data
@@ -862,6 +861,293 @@ function buildWeaponLis() {
             $(this).css("margin-left", "0px");
             $(this).css("width", "auto");
             $(this).css("height", "auto");
+        },
+    });
+}
+
+function updateCrits(mechPart, leftRight, critToAdd, addRemove, containerID, rowIndex = false) {
+    let critDetails = getMechPartSlots(mechPart, leftRight);
+
+    let TotalSlotsAvailable = parseInt(Object.keys(critDetails).length, 10);
+    let slotsUnused = parseInt(Object.values(critDetails).filter((value) => !Boolean(value)).length, 10);
+    let slotsUsed = parseInt(Object.values(critDetails).filter(Boolean).length, 10);
+    let tonnageSlotsAvail = parseInt(weaponSlotsAvail()[mechPart], 10);
+    let critToAddDetails = dataByWeaponName[critToAdd];
+    let critToAddSlots = parseInt(critToAddDetails.slotsRequired, 10);
+    let critToAddTons = parseFloat(critToAddDetails.tons, 10);
+
+    if (addRemove === "remove") {
+        fullMechData.mechinternals_weaponTonnage -= critToAddTons;
+
+        let critEntryDeleted = false;
+        for (let [compKey, slotCompVal] of Object.entries(critDetails)) {
+            if (parseInt(compKey.replace(/\D/g, ""), 10) === rowIndex) {
+                critDetails[compKey] = "";
+                critEntryDeleted = true;
+                critToAddSlots--;
+            } else if (critEntryDeleted && slotCompVal === "overflow" && critToAddSlots > 0) {
+                critDetails[compKey] = "";
+            } else if (critEntryDeleted && slotCompVal !== "overflow") {
+                break;
+            }
+        }
+        let shiftedSlots = shiftSlots(critDetails);
+        for (let [compKey, slotCompVal] of Object.entries(shiftedSlots)) {
+            fullMechData[compKey] = slotCompVal;
+        }
+        displayCrits(containerID, mechPart, leftRight);
+        updateTonnage();
+    } else if (critToAddSlots <= tonnageSlotsAvail - slotsUsed) {
+        fullMechData.mechinternals_weaponTonnage += critToAddTons;
+
+        let critToAddSlotsCopy = critToAddSlots;
+        for (let [compKey, slotCompVal] of Object.entries(critDetails)) {
+            if (slotCompVal === "" && critToAddSlotsCopy > 0) {
+                fullMechData[compKey] = critToAddSlotsCopy === critToAddSlots ? critToAdd : "overflow";
+                critToAddSlotsCopy--;
+            }
+        }
+        displayCrits(containerID, mechPart, leftRight);
+        updateTonnage();
+    }
+}
+
+// Re-index weapon slots
+function shiftSlots(obj) {
+    // Extract all values from the object
+    const values = Object.values(obj);
+
+    // Separate non-empty and empty values
+    const nonEmpty = values.filter((value) => value !== "");
+    const empty = values.filter((value) => value === "");
+
+    // Recombine non-empty and empty values
+    const shiftedValues = [...nonEmpty, ...empty];
+
+    // Map shifted values back to the original object keys
+    const keys = Object.keys(obj);
+    const result = {};
+    keys.forEach((key, index) => {
+        result[key] = shiftedValues[index];
+    });
+
+    return result;
+}
+
+/*
+    EXAMPLE pageload calls to this function
+    displayCrits("leftArmCritTable", "mecharm", 0);
+    displayCrits("rightArmCritTable", "mecharm", 1);
+    displayCrits("headCritTable", "mechhead", 2);
+    displayCrits("leftTorsoCritTable", "mechtorso", 0);
+    displayCrits("rightTorsoCritTable", "mechtorso", 1);
+    displayCrits("leftLegCritTable", "mechleg", 0);
+    displayCrits("rightLegCritTable", "mechleg", 1);
+    displayCrits("centerCritTable", "mechtorsocenter", 2);
+*/
+function displayCrits(idToMod, mechPart, leftRight) {
+    let weaponSlotsAvailToEval = weaponSlotsAvail();
+    let numUnmovable = weaponSlotsAvailToEval[mechPart];
+
+    const critDetails = getMechPartSlots(mechPart, leftRight);
+
+    var myNode = document.getElementById(idToMod);
+    while (myNode.firstChild) {
+        myNode.removeChild(myNode.firstChild);
+    }
+
+    let counter = numUnmovable;
+    for (var key in critDetails) {
+        var TR = document.createElement("tr");
+        TR.className = "dropSlots";
+        var TD = document.createElement("td");
+        TD.className = "dropSlotsTD";
+        TD.innerHTML = critDetails[key];
+
+        if (critDetails[key] == "overflow") {
+            TD.innerHTML = "&#8595" + "&nbsp&nbsp&nbsp" + "&#8595" + "&nbsp&nbsp&nbsp" + "&#8595";
+            TD.className = "dropSlotsUnmovable";
+        }
+        if (critDetails[key] == "") {
+            TD.className = "dropSlotsUnmovable";
+        }
+        if (counter > 0) {
+            // TD.className = "dropSlotsUnmovable";
+            TD.style.backgroundColor = "#FFAC30";
+        }
+
+        TD.style.textOverflow = "visible";
+        TD.style.whiteSpace = "nowrap";
+
+        document.getElementById(idToMod).appendChild(TR).appendChild(TD);
+        counter--;
+    }
+
+    // This function has to be called here bc it can only be made
+    // droppable after being created.
+    makeDroppable();
+}
+
+/* Companion function to above - get mech slots available (by weight) */
+function weaponSlotsAvail() {
+    return mechSlotByWeightClass[returnWeightClass()];
+}
+
+function displayAllCrits() {
+    displayCrits("leftArmCritTable", "mecharm", 0);
+    displayCrits("rightArmCritTable", "mecharm", 1);
+    displayCrits("headCritTable", "mechhead", 2);
+    displayCrits("leftTorsoCritTable", "mechtorso", 0);
+    displayCrits("rightTorsoCritTable", "mechtorso", 1);
+    displayCrits("leftLegCritTable", "mechleg", 0);
+    displayCrits("rightLegCritTable", "mechleg", 1);
+    displayCrits("centerCritTable", "mechtorsocenter", 2);
+}
+
+/* When changing weights, remove extra weapons that don't fit */
+function clearSlotsOnWeightChange() {
+    let weightClass = returnWeightClass();
+    let weaponSlotsAvailToEval = mechSlotByWeightClass[weightClass];
+
+    for (let [comp, slotsAvail] of Object.entries(weaponSlotsAvailToEval)) {
+        for (let i in [0, 1, 2]) {
+            let currentCompCrits = getMechPartSlots(comp, parseInt(i, 10));
+
+            if ($.isEmptyObject(currentCompCrits)) continue;
+
+            let slotCounter = Object.keys(currentCompCrits).length;
+            for (let [slotKey, slotVal] of Object.entries(currentCompCrits).reverse()) {
+                if (slotCounter > parseInt(slotsAvail, 10)) {
+                    fullMechData[slotKey] = "";
+                    if (slotVal === "overflow") {
+                        slotsAvail = parseInt(slotsAvail, 10) - 1;
+                    }
+                }
+                slotCounter--;
+            }
+        }
+    }
+}
+
+/* Companion function to above - get mech weight class */
+function returnWeightClass(mechWeightPassed = "") {
+    let foundMechWeight = mechWeightPassed ? mechWeightPassed : fullMechData.mechs_maxTonnage;
+    foundMechWeight = parseInt(foundMechWeight, 10);
+    if (foundMechWeight >= 85) return "Assault";
+    else if (foundMechWeight >= 65) return "Heavy";
+    else if (foundMechWeight >= 40) return "Medium";
+    else return "Light";
+}
+
+function getMechPartSlots(mechPart, leftRight) {
+    let leftRightMod = "";
+    if (leftRight === 0) {
+        leftRightMod = "Left";
+    } else if (leftRight === 1) {
+        leftRightMod = "Right";
+    }
+    let finalPrefix = mechPart + leftRightMod + "_";
+
+    const critDetailsUnsorted = Object.fromEntries(
+        Object.entries(fullMechData).filter((key, val) => {
+            return key[0].indexOf(finalPrefix) === 0 && key[0].includes("_slot");
+        })
+    );
+
+    const sortedKeys = Object.keys(critDetailsUnsorted).sort((a, b) => {
+        const numA = parseInt(a.match(/slot(\d+)/)[1], 10);
+        const numB = parseInt(b.match(/slot(\d+)/)[1], 10);
+        return numA - numB;
+    });
+
+    // Rebuild the object with sorted keys
+    const critDetails = Object.fromEntries(sortedKeys.map((key) => [key, critDetailsUnsorted[key]]));
+
+    return critDetails;
+}
+
+// THIS FUNCTION MAKES THE CRIT CONTAINERS DROPPABLE BUT HAS TO BE CALLED AFTER
+// THOSE CONTAINERS ARE MADE DYNAMICALLY.
+function makeDroppable() {
+    $(".dropSlots").droppable({
+        tolerance: "pointer",
+        accept: ".weaponChildLI",
+
+        drop: function (event, ui) {
+            ui.draggable.data("dropped", true);
+
+            containerID = $(this).parent().attr("id");
+            if (containerID == "headCritTable") {
+                modLocation = "mechhead";
+                altLocation = 2;
+            } else if (containerID == "leftArmCritTable") {
+                modLocation = "mecharm";
+                altLocation = 0;
+            } else if (containerID == "rightArmCritTable") {
+                modLocation = "mecharm";
+                altLocation = 1;
+            } else if (containerID == "leftTorsoCritTable") {
+                modLocation = "mechtorso";
+                altLocation = 0;
+            } else if (containerID == "rightTorsoCritTable") {
+                modLocation = "mechtorso";
+                altLocation = 1;
+            } else if (containerID == "centerCritTable") {
+                modLocation = "mechtorsocenter";
+                altLocation = 2;
+            } else if (containerID == "leftLegCritTable") {
+                modLocation = "mechleg";
+                altLocation = 0;
+            } else if (containerID == "rightLegCritTable") {
+                modLocation = "mechleg";
+                altLocation = 1;
+            }
+
+            updateCrits(modLocation, altLocation, $(ui.draggable).html(), "add", containerID);
+        },
+    });
+
+    $(".dropSlotsTD").draggable({
+        revert: true,
+        revertDuration: 0,
+        cursor: "move",
+        start: function (event, ui) {
+            $(this).toggleClass("draggingWeapon");
+            $(this).css("display", "block");
+        },
+        stop: function (event, ui) {
+            $(this).toggleClass("draggingWeapon");
+            const rowIndex = parseInt($(this).parent().index(), 10) + 1;
+
+            containerID = $(this).parent().parent().attr("id");
+            if (containerID == "headCritTable") {
+                modLocation = "mechhead";
+                altLocation = 2;
+            } else if (containerID == "leftArmCritTable") {
+                modLocation = "mecharm";
+                altLocation = 0;
+            } else if (containerID == "rightArmCritTable") {
+                modLocation = "mecharm";
+                altLocation = 1;
+            } else if (containerID == "leftTorsoCritTable") {
+                modLocation = "mechtorso";
+                altLocation = 0;
+            } else if (containerID == "rightTorsoCritTable") {
+                modLocation = "mechtorso";
+                altLocation = 1;
+            } else if (containerID == "centerCritTable") {
+                modLocation = "mechtorsocenter";
+                altLocation = 2;
+            } else if (containerID == "leftLegCritTable") {
+                modLocation = "mechleg";
+                altLocation = 0;
+            } else if (containerID == "rightLegCritTable") {
+                modLocation = "mechleg";
+                altLocation = 1;
+            }
+
+            updateCrits(modLocation, altLocation, $(this).html(), "remove", containerID, rowIndex);
+            $(this).remove();
         },
     });
 }

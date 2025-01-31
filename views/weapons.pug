@@ -11,6 +11,30 @@ div#weaponAccordion
     li.weaponAccordionLI Ammunition
         ul#weaponChild.wc_Ammunition
 
+div.critContainers#leftArmCrits Left Arm
+    table.critSlots#leftArmCritTable
+
+div.critContainers(style="background-color: grey;")
+    div#leftTorsoCrits(style="display: block;") Left Torso
+        table.critSlots#leftTorsoCritTable
+    div#leftLegCrits(style="display: block;") Left Leg
+        table.critSlots#leftLegCritTable
+
+div.critContainers(style="background-color: grey;")
+    div#headCrits(style="display: block;") Head
+        table.critSlots#headCritTable
+    div#torsoCrits(style="display: block;") Center Torso
+        table.critSlots#centerCritTable
+
+div.critContainers(style="background-color: grey;")
+    div#rightTorsoCrits Right Torso
+        table.critSlots#rightTorsoCritTable
+    div#rightLegCrits Right Leg
+        table.critSlots#rightLegCritTable
+
+div.critContainers#rightArmCrits Right Arm
+    table.critSlots#rightArmCritTable
+
 table#weaponInfo
   tbody
     tr#weaponDetailsHeader

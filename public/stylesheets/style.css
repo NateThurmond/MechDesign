@@ -915,6 +915,67 @@ h1 {
   left: -46px;
 }
 
+.critContainers {
+  display: inline-block;
+  float: left;
+  width: 90px;
+  background-color: lightgray;
+  margin-left: 5px;
+  font-size: 14px;
+  color: black;
+  font-weight: strong;
+}
+
+#leftArmCrits {
+  margin-left: 9px;
+  margin-top: 40px;
+  height: auto;
+}
+
+#leftTorsoCrits {
+  margin-top: 20px;
+  height: auto;
+  background-color: lightgray;
+}
+
+#headCrits {
+  margin-top: 0px;
+  height: auto;
+  margin-bottom: 15px;
+  background-color: lightgray;
+}
+
+#rightTorsoCrits {
+  margin-top: 20px;
+  height: auto;
+  background-color: lightgray;
+}
+
+#rightArmCrits {
+  margin-top: 40px;
+  height: auto;
+}
+
+#torsoCrits {
+  height: auto;
+  border-top: 5px solid grey;
+  background-color: lightgray;
+}
+
+#leftLegCrits {
+  height: auto;
+  border-top: 5px solid grey;
+  background-color: lightgray;
+  margin-top: 20px;
+}
+
+#rightLegCrits {
+  height: auto;
+  border-top: 5px solid grey;
+  background-color: lightgray;
+  margin-top: 20px;
+}
+
 #weaponInfo {
   font-weight: bold;
   background-color: #3E4146;
@@ -990,6 +1051,32 @@ h1 {
 .weaponHighlight {
   background: #003545;
   border-left: 5px solid lightgreen;
+}
+
+.critSlots {
+  font-family: Verdana, Geneva, Arial, sans-serif;
+  font-size: 8px;
+  color: black;
+}
+
+.critSlots tr td {
+  text-align: center;
+  box-shadow: 0px 0px 5px black;
+  width: 90px;
+  height: 11px;
+  max-width: 84px;
+  overflow: auto;
+}
+
+.draggingWeapon {
+  background: orange;
+  width: 80px;
+  height: 12px;
+  font-size: 8px;
+}
+
+.dropSlotsTD {
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=style.css.map */
