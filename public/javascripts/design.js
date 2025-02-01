@@ -96,14 +96,13 @@ $(document).ready(function () {
         }
     });
 
-    $(".weaponAccordionLI").hover(
-        function () {
+    $(".weaponAccordionLI")
+        .on("mouseenter", function () {
             $(this).addClass("highlighted");
-        },
-        function () {
+        })
+        .on("mouseleave", function () {
             $(this).removeClass("highlighted");
-        }
-    );
+        });
 
     $(document).on("mouseenter", ".weaponChildLI", function () {
         $(this).addClass("weaponHighlight");
@@ -113,43 +112,68 @@ $(document).ready(function () {
         $(this).removeClass("weaponHighlight");
     });
 
-    $(".selector").hover(
-        function () {
+    $(".selector")
+        .on("mouseenter", function () {
             $(this).addClass("highlighted2");
-        },
-        function () {
+        })
+        .on("mouseleave", function () {
             $(this).removeClass("highlighted2");
-        }
-    );
+        });
 
-    $("#link_0").click(function () {
+    $("#link_0").on("click", function () {
         $("#mechBaseSelector").toggleClass("showHide");
         $("#mechCustomSelector").removeClass("showHide");
     });
 
-    $("#link_1").click(function () {
+    $("#link_1").on("click", function () {
         $("#mechCustomSelector").toggleClass("showHide");
         $("#mechBaseSelector").removeClass("showHide");
     });
 
-    $("#mechDetails_save").click(function () {
-        mechJSON = {
-            _id: fullMechData._id,
-            weight: $("#mechTonnageDropDown").val(),
+    $("#mechDetails_save").on("click", function () {
+        // Details appended to fullMechData
+        let mechDetailsToSave = {
+            mechs_mechName: $("input[name='mechName']").val(),
+            mechs_mechModel: $("input[name='mechModel']").val(),
+        };
+
+        // Must pass validation before saving is allowed
+        let validateDetails = {
             speed: $(".movementValues").val(),
-            mechName: $("input[name='mechName']").val(),
             userName: getCookie("userName") || "guest",
         };
 
-        if (Object.values(mechJSON).some((e) => !e)) {
-            alert("Some fields are missing. Please make sure that all fields are filled in.");
+        let alerts = [];
+
+        if (parseInt(validateDetails.speed, 10) <= 0) {
+            alerts.push("Speed must be between 1 and 12");
         }
 
-        $.get("/design/mechName/" + mechJSON.mechName, function (data) {
-            // saveMech("save", mechJSON);
-            // saveMech("saveNew", mechJSON);
-            // createCookie("selectedMech", mechJSON.mechName, 14400000);
-        });
+        if ($("#totalWeight").css("color") === "rgb(255, 0, 0)") {
+            alerts.push("Mech weight exceeds maximum tonnage");
+        }
+
+        if (
+            Object.values({ ...validateDetails, ...mechDetailsToSave }).some(
+                (e) => !e || (typeof e === "string" && !e.trim())
+            )
+        ) {
+            alerts.push("Some fields are missing. Please make sure that all fields are filled in.");
+        }
+
+        if (alerts.length > 0) {
+            alert(alerts.join("\n"));
+            return;
+        }
+
+        fullMechData = { ...fullMechData, ...mechDetailsToSave };
+
+        console.log(fullMechData);
+
+        saveMech("saveMech", fullMechData);
+
+        /* In case we add session ident. */
+        // createCookie("selectedMech", mechJSON.mechName, 14400000);
     });
 
     $(document).on("click", ".upMovementArrow", function () {
@@ -266,13 +290,14 @@ function saveMech(saveString, mechJSON) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            alert(response);
+            console.log(response);
 
-            if (response.indexOf("Created new mech") >= 0) {
-                window.open("/design", "_self");
-            }
-            if (response.indexOf("Mech Details Saved") >= 0) {
-                // Re-render / reload page with updated mech data ?
+            if (typeof response === "object" && response?.message === "Mech saved/updated successfully") {
+                // Re-render / reload page with mech id
+                alert("Mech saved/updated successfully");
+                window.open("/design/" + response?.fullMechData?._id || fullMechData._id, "_self");
+            } else {
+                alert("Failed to save mech");
             }
         },
     });
@@ -1150,4 +1175,26 @@ function makeDroppable() {
             $(this).remove();
         },
     });
+}
+
+/* JSON obj diffing function useful for debugging */
+function diffObjects(obj1, obj2) {
+    const diff = {};
+
+    // Check keys in obj1
+    for (const key in obj1) {
+        // If value changed or key doesn't exist in obj2
+        if (obj1[key] !== obj2[key]) {
+            diff[key] = { oldValue: obj1[key], newValue: obj2[key] };
+        }
+    }
+
+    // Check for new keys in obj2
+    for (const key in obj2) {
+        if (!(key in obj1)) {
+            diff[key] = { oldValue: undefined, newValue: obj2[key] };
+        }
+    }
+
+    return diff;
 }
