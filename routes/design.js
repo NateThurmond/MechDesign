@@ -53,27 +53,35 @@ router.get("/mechName/:mechName", function (req, res) {
     });
 });
 
+/* Older methods but they do remain useful as references */
+
 /* POST new mech for design page. */
 router.post("/saveNew/", function (req, res) {
     mech = req.body;
-
-    mechMod.save(mech, function (error, response) {
-        res.json(response);
-    });
+    // mechMod.save(mech, function (error, response) { res.json(response); });
 });
 
 /* POST to delete mech. */
 router.post("/removeMech/:mechName", function (req, res) {
-    mechMod.removeMech(req.params.mechName, function (error, response) {
-        res.json(response);
-    });
+    // mechMod.removeMech(req.params.mechName, (e, response) => { res.json(response); });
 });
 
 /* POST save existing mech for design page. */
 router.post("/save/", function (req, res) {
     mech = req.body;
+    // mechMod.patch(mech, (e, res) => { res.json(res); });
+});
 
-    mechMod.patch(mech, function (error, response) {
-        res.json(response);
+// POST method to upsert mech based on mechs_mechName and mechs_mechModel
+router.post("/saveMech", function (req, res) {
+    mechMod.saveMech(req.body, function (err, updatedDoc) {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: "Failed to save mech" });
+        }
+        res.json({
+            message: "Mech saved/updated successfully",
+            fullMechData: updatedDoc,
+        });
     });
 });

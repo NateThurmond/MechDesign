@@ -76,6 +76,7 @@ mechMod.prototype.removeMech = function (mechID, callback) {
     });
 };
 
+/* Older method that needs some rework before use but does contain useful references */
 mechMod.prototype.save = function (mech, callback) {
     if (mech == null) {
         console.log("error: no mech data sent to mechMod.save");
@@ -95,6 +96,7 @@ mechMod.prototype.save = function (mech, callback) {
     }
 };
 
+/* Older method that needs some rework before use but does contain useful references */
 mechMod.prototype.patch = function (mech, callback) {
     if (mech == null) {
         console.log("error: no mech data sent to mechMod.patch");
@@ -115,6 +117,34 @@ mechMod.prototype.patch = function (mech, callback) {
                 );
             }
         });
+    }
+};
+
+mechMod.prototype.saveMech = async function (mechData, callback) {
+    try {
+        // Remove _id to avoid conflicts during upsert
+        delete mechData._id;
+
+        // Build the query
+        const query = {
+            mechs_mechModel: mechData.mechs_mechModel,
+            mechs_mechName: mechData.mechs_mechName,
+        };
+        const update = {
+            $set: mechData,
+        };
+
+        // upsert: true => If no document matches query, create a new doc.
+        const options = {
+            upsert: true,
+        };
+
+        // Upsert to mongoo
+        const result = await this.collection.findOneAndUpdate(query, update, options);
+
+        callback(null, result);
+    } catch (error) {
+        callback(error);
     }
 };
 
