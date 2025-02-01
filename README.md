@@ -6,6 +6,10 @@ This project is a site developed in Node JS to allow players of the board game "
 
 The first site was handled in php and javascript and worked well enough but I would like this site to have improved functionality and also explore different options using MongoDB and Node JS.
 
+### Getting Started
+
+<img src="public/vids/demoUse.min.gif" width="450" />
+
 ### Dependencies
 
 -   Docker Desktop
@@ -34,6 +38,8 @@ Save once you customized your mech
 
 ## Version History
 
+-   0.4
+    -   Add full mongodb integration on backend
 -   0.3
     -   Final buildout includes all routes and scripts needed for future dev.
     -   Includes init DB scripts so anyone can spin up application
