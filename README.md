@@ -45,7 +45,7 @@ Save once you customized your mech
     -   Includes init DB scripts so anyone can spin up application
 -   0.2
     -   Switch over to .pug templating from .jade
-    -   See [commit change]() or See [release history]()
+    -   See [commit change](https://github.com/NateThurmond/MechDesign/commits/master/) or See [release history](https://github.com/NateThurmond/MechDesign/releases)
 -   0.1
     -   Initial Development
 
